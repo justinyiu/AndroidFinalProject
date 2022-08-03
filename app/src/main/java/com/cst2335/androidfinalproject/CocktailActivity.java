@@ -22,8 +22,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.Button;
+import android.content.Intent;
 
 public class CocktailActivity extends AppCompatActivity {
+
+
+    private EditText userText;
+    private Button search;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +40,45 @@ public class CocktailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cocktail);
 
 
+        userText = findViewById(R.id.editText2);
+        //EditText editText2 = findViewById(R.id.editText2);
+
+
+        search = findViewById(R.id.search_button);
+
+
 
         MyHttpRequest req = new MyHttpRequest();
-        req.execute("https://www.cocktaildb.com/api/json/v1/1/search.php?s=martini"); // type 1
 
+
+/**
+ * When the user clicks the search button, it will get the user's text and execute the search query
+ *
+ */
+/**
+ *  Button btnLogin = findViewById(R.id.btn_login);
+ *         btnLogin.setOnClickListener(v -> {
+ *             Intent goToProfile = new Intent(MainActivity.this, ProfileActivity.class);
+ *             goToProfile.putExtra("email", email.getText().toString());
+ *             startActivity(goToProfile);
+ *         });
+ */
+//TODO: Add error handling
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String drink = userText.getText().toString();
+                req.execute("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + drink); // type 1
+
+                Intent goToFragment = new Intent(CocktailActivity.this, DetailFragment.class );
+                startActivity(goToFragment);
+            }
+        });
     }
+
+
+
+
     private class MyHttpRequest extends AsyncTask <String, Integer, String> {
 
         public String doInBackground(String ... args) {
@@ -67,7 +110,9 @@ public class CocktailActivity extends AppCompatActivity {
                 JSONArray drinksArray = jsObj.getJSONArray("drinks");
                 for (int i = 0; i < drinksArray.length(); i++) {
                     JSONObject objectFromArray = drinksArray.getJSONObject(i);
+
                     String picture = objectFromArray.getString("strDrinkThumb");
+
                     String instructions = objectFromArray.getString("strInstructions");
 
                     String ingredient1 = objectFromArray.getString("strIngredient1");
