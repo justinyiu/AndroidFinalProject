@@ -44,7 +44,7 @@ public class CocktailActivity extends AppCompatActivity {
 
          prev = PreferenceManager.getDefaultSharedPreferences(this);
           String previousDrink = prev.getString("PreviousDrink", "");
-          EditText drinks = findViewById(R.id.editText2);
+          EditText drinks = findViewById(R.id.cocktailSearch);
           drinks.setText(previousDrink);
 
         Button search = findViewById(R.id.button);
