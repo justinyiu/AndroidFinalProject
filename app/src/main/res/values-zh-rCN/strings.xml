@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">鸡尾酒数据库</string>
+    <string name="action_settings">设置</string>
+    <string name="hint_text"> 类型:</string>
+    <string name="cocktail_button">鸡尾酒</string>
+    <string name="pexel_button">图片</string>
+    <string name="owlbot_button">Owlbot</string>
+    <string name="nutrition_button">营养</string>
+    <string name="enter_button">搜索</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">第一区</string>
+    <string name="second_fragment_label">第二区</string>
+    <string name="next">下一个</string>
+    <string name="previous">上一个</string>
+
+    <string name="hello_first_fragment">你好，第一区</string>
+    <string name="hello_second_fragment">你好，第二区 Arg: %1$s</string>
+
+</resources>
