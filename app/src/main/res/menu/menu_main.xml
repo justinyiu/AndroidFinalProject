@@ -2,9 +2,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.cst2335.androidfinalproject.MainActivity">
+
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/cocktailMenu"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="Cocktails"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/cocktailIcon"
+        android:orderInCategory="25"
+        android:icon="@drawable/cocktail"
+        android:title="Not used, since showAsAction=always"
+        app:showAsAction="always"/>
 </menu>
