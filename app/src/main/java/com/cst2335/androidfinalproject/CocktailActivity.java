@@ -2,6 +2,7 @@ package com.cst2335.androidfinalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,12 +33,22 @@ public class CocktailActivity extends AppCompatActivity {
     private EditText userText;
     private Button search;
 
+    /**
+     * database variables
+     */
+    private MyOpenHelper myOpener;
+    private SQLiteDatabase myDatabase;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cocktail);
+
+        //TODO: add and initialize the database
+        // inialize the database
+        MyOpenHelper myOpener = new MyOpenHelper(this);
 
 
         userText = findViewById(R.id.editText2);
@@ -55,14 +66,7 @@ public class CocktailActivity extends AppCompatActivity {
  * When the user clicks the search button, it will get the user's text and execute the search query
  *
  */
-/**
- *  Button btnLogin = findViewById(R.id.btn_login);
- *         btnLogin.setOnClickListener(v -> {
- *             Intent goToProfile = new Intent(MainActivity.this, ProfileActivity.class);
- *             goToProfile.putExtra("email", email.getText().toString());
- *             startActivity(goToProfile);
- *         });
- */
+
 //TODO: Add error handling
         search.setOnClickListener(new View.OnClickListener() {
             @Override

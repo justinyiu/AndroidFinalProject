@@ -10,8 +10,9 @@ public class MyOpenHelper extends SQLiteOpenHelper {
     public static final int VERSION_NUM = 1;
     public static final String TABLE_NAME = "MyData";
     public static final String COL_ID = "_id";
-    public static final String COL_MESSAGE = "Message";
-    public static final String COL_SEND_RECEIVE = "SendOrReceive";
+    public static final String COL_PICTURE = "picture";
+    public static final String COL_INSTRUCTIONS = "instructions";
+    public static final String COL_INGREDIENTS = "ingredients";
 
     public MyOpenHelper(Context ctx) {
         super(ctx, FILENAME, null, VERSION_NUM);
@@ -20,7 +21,7 @@ public class MyOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(String.format("Create table %s(%s integer primary key autoincrement, %s text, %s INTEGER);"
-                ,TABLE_NAME, COL_ID, COL_MESSAGE, COL_SEND_RECEIVE));
+                ,TABLE_NAME, COL_ID, COL_PICTURE, COL_INSTRUCTIONS, COL_INGREDIENTS));
     }
 
     @Override
