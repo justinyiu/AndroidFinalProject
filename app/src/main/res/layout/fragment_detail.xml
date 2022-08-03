@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailsFragment"
+    tools:context=".DetailFragment"
     android:id="@+id/fragmentLocation">
 
     <RelativeLayout
@@ -14,22 +14,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/fooddName"
+            <ImageView
+                android:id="@+id/thumbnail"
+                android:layout_gravity="fill_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fooddName" />
+                android:text="@string/thumbnail" />
             <TextView
-                android:id="@+id/calories"
+                android:id="@+id/instruction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/calories"
+                android:text="instruction"
                 />
             <TextView
-                android:id="@+id/protein"
+            android:id="@+id/ingredients1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ingredients"
+            />
+            <TextView
+                android:id="@+id/ingredients2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/protein"
+                android:text="ingredients"
+                />
+            <TextView
+                android:id="@+id/ingredients3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ingredients"
                 />
         </LinearLayout>
         <RelativeLayout

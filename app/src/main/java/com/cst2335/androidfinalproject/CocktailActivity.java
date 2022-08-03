@@ -30,6 +30,8 @@ public class CocktailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cocktail);
 
+
+
         MyHttpRequest req = new MyHttpRequest();
         req.execute("https://www.cocktaildb.com/api/json/v1/1/search.php?s=martini"); // type 1
 

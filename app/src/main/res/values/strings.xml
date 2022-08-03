@@ -17,4 +17,10 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
+    <string name="thumbnail">thumbnail</string>
+    <string name="instructions">instructions</string>
+
+    <string name="save">save</string>
+    <string name="delete">delete</string>
+
 </resources>
