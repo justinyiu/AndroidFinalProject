@@ -106,21 +106,8 @@ public class CocktailActivity extends AppCompatActivity {
 
         //printCursor(history, 1);
         history.close();
-        /**
-         * send the query to the server
-         */
-        search.setOnClickListener(click->{
-            drinkSearch = userText.getText().toString();
-            //drinkSearch = drinkSearch.replace(" ", "%20");
-            MyHttpRequest req = new MyHttpRequest();
-            req.execute("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + drinkSearch); // type 1
 
 
-            cocktailProgressBar.setVisibility(View.VISIBLE);
-            userText.setText("");
-
-
-        });
 
 //**************************************************************************************************
         //TODO: add and initialize the database
@@ -146,13 +133,26 @@ public class CocktailActivity extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                drinkSearch = userText.getText().toString();
+                //drinkSearch = drinkSearch.replace(" ", "%20");
+                MyHttpRequest req = new MyHttpRequest();
+                req.execute("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + drinkSearch); // type 1
+                cocktailProgressBar.setVisibility(View.VISIBLE);
+                userText.setText("");
 
 
-                Intent goToFragment = new Intent(CocktailActivity.this, DetailFragment.class );
-                startActivity(goToFragment);
             }
         });
+
+        /**
+         * add the results from the search result to the listView
+         */
+        theList.setOnClickListener({
+
+
+        });
     }
+
 
 
     /**
