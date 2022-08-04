@@ -60,7 +60,8 @@ public class CocktailActivity extends AppCompatActivity {
 
 
         MyHttpRequest req = new MyHttpRequest();
-
+        String drink = userText.getText().toString();
+        req.execute("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + drink);
 
 /**
  * When the user clicks the search button, it will get the user's text and execute the search query
@@ -71,8 +72,7 @@ public class CocktailActivity extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String drink = userText.getText().toString();
-                req.execute("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + drink); // type 1
+                // type 1
 
                 Intent goToFragment = new Intent(CocktailActivity.this, DetailFragment.class );
                 startActivity(goToFragment);
