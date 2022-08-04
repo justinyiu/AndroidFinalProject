@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.preference.PreferenceManager;
 import android.view.View;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -40,6 +43,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
+
 public class CocktailActivity extends AppCompatActivity {
 
 
@@ -55,6 +59,7 @@ public class CocktailActivity extends AppCompatActivity {
     private MyOpenHelper myOpenHelper;
     private SQLiteDatabase myDatabase;
     private String drinkSearch;
+    SharedPreferences prev = null; 
 
     ArrayList<String> source = new ArrayList<>(Arrays.asList("One", "Two", "Three", "Four"));
 
@@ -106,8 +111,21 @@ public class CocktailActivity extends AppCompatActivity {
 
         //printCursor(history, 1);
         history.close();
+        /**
+         * send the query to the server
+         */
+        search.setOnClickListener(click->{
+            drinkSearch = userText.getText().toString();
+            //drinkSearch = drinkSearch.replace(" ", "%20");
+            MyHttpRequest req = new MyHttpRequest();
+            req.execute("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + drinkSearch); // type 1
 
 
+            cocktailProgressBar.setVisibility(View.VISIBLE);
+            userText.setText("");
+
+
+        });
 
 //**************************************************************************************************
         //TODO: add and initialize the database
@@ -133,26 +151,32 @@ public class CocktailActivity extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drinkSearch = userText.getText().toString();
-                //drinkSearch = drinkSearch.replace(" ", "%20");
-                MyHttpRequest req = new MyHttpRequest();
-                req.execute("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + drinkSearch); // type 1
-                cocktailProgressBar.setVisibility(View.VISIBLE);
-                userText.setText("");
 
 
+                Intent goToFragment = new Intent(CocktailActivity.this, DetailFragment.class );
+                startActivity(goToFragment);
             }
         });
 
         /**
-         * add the results from the search result to the listView
+         * This is where the previous input is saved and displayed in the edittext
          */
-        theList.setOnClickListener({
-
-
-        });
+        prev = PreferenceManager.getDefaultSharedPreferences(this);
+        String previousDrink = prev.getString("PreviousDrink", "");
+        EditText lastDrink = findViewById(R.id.cocktailSearch);
+        lastDrink.setText(previousDrink);
+        search.setOnClickListener(bt -> savePreviousDrink(lastDrink.getText().toString()));
     }
 
+    /**
+     * Saves the string
+     * @param previousDrink
+     */
+    private void savePreviousDrink (String previousDrink) {
+        SharedPreferences.Editor editor = prev.edit();
+        editor.putString("PreviousDrink", previousDrink);
+        editor.commit();
+    }
 
 
     /**

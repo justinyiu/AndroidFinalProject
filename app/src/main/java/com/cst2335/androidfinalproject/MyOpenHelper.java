@@ -10,6 +10,7 @@ import android.util.Log;
  */
 public class MyOpenHelper extends SQLiteOpenHelper {
 
+
     /**
      * This class *should* be completed
      */
@@ -29,6 +30,7 @@ public class MyOpenHelper extends SQLiteOpenHelper {
     public static final String COL_INGREDIENT1 = "ingredient1";
     public static final String COL_INGREDIENT2 = "ingredient2";
     public static final String COL_INGREDIENT3 = "ingredient3";
+    public static final String COL_INGREDIENTS = "Ingredients" ;
 
 
     /**
