@@ -22,5 +22,6 @@
 
     <string name="save">save</string>
     <string name="delete">delete</string>
+    <string name="Saved">Saved!!</string>
 
 </resources>
