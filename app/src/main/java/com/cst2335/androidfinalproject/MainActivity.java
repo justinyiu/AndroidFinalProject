@@ -47,16 +47,6 @@ public class MainActivity extends AppCompatActivity {
         myToolbar = (Toolbar)findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        /*button = findViewById(R.id.cocktail_button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent goToCocktail = new Intent(MainActivity.this, CocktailActivity.class);
-                startActivity(goToCocktail);
-            }
-        });*/
-
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
