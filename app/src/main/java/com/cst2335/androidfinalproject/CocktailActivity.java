@@ -23,6 +23,7 @@ import java.net.HttpURLConnection;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import android.view.Menu;
@@ -47,13 +48,17 @@ public class CocktailActivity extends AppCompatActivity {
      */
     private ListAdapter adapter;
     private ListView theList; //id is theList
-    private ArrayList<HashMap<String, String>> cocktailList = new ArrayList<>();
+    private ArrayList<Cocktail> cocktailList = new ArrayList<>();
     //private MyListAdapter myAdapter;
     private EditText userText;
     private Button search;
     private MyOpenHelper myOpenHelper;
     private SQLiteDatabase myDatabase;
     private String drinkSearch;
+
+    ArrayList<String> source = new ArrayList<>(Arrays.asList("One", "Two", "Three", "Four"));
+
+
 
     //TODO: make a progress bar
     private ProgressBar cocktailProgressBar;
@@ -71,81 +76,51 @@ public class CocktailActivity extends AppCompatActivity {
         theList = findViewById(R.id.theList);
         cocktailProgressBar = findViewById(R.id.progressBar);
 
-        // TODO: make the snackbar
+
         cocktailProgressBar.setVisibility(View.VISIBLE);
+
+
+
 
         myOpenHelper = new MyOpenHelper(this);
         myDatabase = myOpenHelper.getWritableDatabase();
+        Cursor history = myDatabase.rawQuery("select * from " + MyOpenHelper.TABLE_NAME + ";", null);
 
+
+        int idIndex = history.getColumnIndex((MyOpenHelper.COL_ID));
+        int picIndex = history.getColumnIndex((MyOpenHelper.COL_PICTURE));
+        int instructionsIndex = history.getColumnIndex((MyOpenHelper.COL_INSTRUCTIONS));
+        int ingredient1Index = history.getColumnIndex((MyOpenHelper.COL_INGREDIENT1));
+        int ingredient2Index = history.getColumnIndex((MyOpenHelper.COL_INGREDIENT2));
+        int ingredient3Index = history.getColumnIndex((MyOpenHelper.COL_INGREDIENT3));
+
+        while (history.moveToNext()) {
+            long id = history.getInt(idIndex);
+            String picture = history.getString(picIndex);
+            String instructions = history.getString(instructionsIndex);
+            String ingredient1 = history.getString(ingredient1Index);
+            String ingredient2 = history.getString(ingredient2Index);
+            String ingredient3 = history.getString((ingredient3Index));
+
+        }
+
+        //printCursor(history, 1);
+        history.close();
         /**
          * send the query to the server
          */
         search.setOnClickListener(click->{
             drinkSearch = userText.getText().toString();
-            drinkSearch = drinkSearch.replace(" ", "%20");
+            //drinkSearch = drinkSearch.replace(" ", "%20");
             MyHttpRequest req = new MyHttpRequest();
-            req.execute();
+            req.execute("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + drinkSearch); // type 1
+
+
             cocktailProgressBar.setVisibility(View.VISIBLE);
             userText.setText("");
-        });
 
-        theList.setOnItemClickListener((parent, view, position, id)->{
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(CocktailActivity.this)
-                    .setMessage("Do you want to view the details of this drink?").setTitle("View")
-                    .setCancelable(true)
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {
-                            SQLiteDatabase myDatabase = myOpenHelper.getWritableDatabase();
-
-                            // will retrieve the hashmap that is stored in the array list
-                            HashMap<String, String> map = cocktailList.get(position);
-
-                            String [] strArray = new String[map.values().size()];
-                            int i = 0;
-
-                            for (String current : map.values()) {
-                                strArray[i] = current;
-                                i++;
-                            }
-
-                            ContentValues contentValues = new ContentValues();
-                            contentValues.put(myOpenHelper.COL_ID,strArray[0]);
-                            contentValues.put(myOpenHelper.COL_PICTURE,strArray[1]);
-                            contentValues.put(myOpenHelper.COL_INSTRUCTIONS,strArray[2]);
-                            contentValues.put(myOpenHelper.COL_INGREDIENTS,strArray[3]);
-                            myDatabase.insert(myOpenHelper.TABLE_NAME, "NullColumnName", contentValues);
-                            Toast toast = Toast.makeText(getApplicationContext(),R.string.Saved, Toast.LENGTH_LONG);
-                            toast.show();
-                        }
-                    })
-                    .setNegativeButton((android.R.string.cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {
-
-                        }
-                    });
-            dialogBuilder.show();
 
         });
-    }
-
-    //Override for options menu??
-
-    @Override
-            protected void onDestroy() {
-        super.onDestroy();
-        myOpenHelper.close();
-    }
-
-    @Override
-            public boolean onOptionsItemSelected(MenuItem item) {
-    }
-
-
-
-
-
 
 //**************************************************************************************************
         //TODO: add and initialize the database
@@ -159,8 +134,7 @@ public class CocktailActivity extends AppCompatActivity {
         //EditText editText2 = findViewById(R.id.editText2);
         search = findViewById(R.id.search_button);
 
-        //delete this later
-        //MyHttpRequest req = new MyHttpRequest();
+
 
 
 /**
@@ -172,8 +146,7 @@ public class CocktailActivity extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String drink = userText.getText().toString();
-                req.execute("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + drink); // type 1
+
 
                 Intent goToFragment = new Intent(CocktailActivity.this, DetailFragment.class );
                 startActivity(goToFragment);
@@ -219,13 +192,9 @@ public class CocktailActivity extends AppCompatActivity {
                     JSONObject objectFromArray = drinksArray.getJSONObject(i);
 
                     String picture = objectFromArray.getString("strDrinkThumb");
-
                     String instructions = objectFromArray.getString("strInstructions");
-
                     String ingredient1 = objectFromArray.getString("strIngredient1");
-
                     String ingredient2 = objectFromArray.getString("strIngredient2");
-
                     String ingredient3 = objectFromArray.getString("strIngredient3");
                     int j=0; j++;
                 }

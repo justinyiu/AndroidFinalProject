@@ -26,7 +26,9 @@ public class MyOpenHelper extends SQLiteOpenHelper {
     public static final String COL_ID = "_id";
     public static final String COL_PICTURE = "picture";
     public static final String COL_INSTRUCTIONS = "instructions";
-    public static final String COL_INGREDIENTS = "ingredients";
+    public static final String COL_INGREDIENT1 = "ingredient1";
+    public static final String COL_INGREDIENT2 = "ingredient2";
+    public static final String COL_INGREDIENT3 = "ingredient3";
 
 
     /**
@@ -45,14 +47,16 @@ public class MyOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         /**
-         * creating the table for the database with 4 columns
+         * creating the table for the database with 6 columns
          */
         Log.i(ACTIVITY_NAME, "OnCreate");
 
         db.execSQL("CREATE TABLE " + TABLE_NAME + "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COL_PICTURE + "TEXT NOT NULL,"
                 + COL_INSTRUCTIONS + "TEXT NOT NULL,"
-                + COL_INGREDIENTS + "TEXT NOT NULL);");
+                + COL_INGREDIENT1 + "TEXT NOT NULL,"
+                + COL_INGREDIENT2 + "TEXT NOT NULL,"
+                + COL_INGREDIENT3 + "TEXT NOT NULL);");
         /**
          * if the above code does not create the table successfully, then try the code below
          */
