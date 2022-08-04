@@ -51,7 +51,7 @@ public class CocktailActivity extends AppCompatActivity {
         MyOpenHelper myOpener = new MyOpenHelper(this);
 
 
-        userText = findViewById(R.id.editText2);
+        userText = findViewById(R.id.cocktailSearch);
         //EditText editText2 = findViewById(R.id.editText2);
 
 
