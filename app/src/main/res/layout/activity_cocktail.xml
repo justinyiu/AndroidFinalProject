@@ -1,47 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/editText"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".CocktailActivity">
 
-    <TextView
-        android:id="@+id/enterName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enter the name of a cocktail:"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
-
-    <EditText
-        android:id="@+id/cocktailSearch"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_text"
-        android:inputType="textWebEditText"
-        app:layout_constraintTop_toBottomOf="@+id/enterName"
-        app:layout_constraintLeft_toLeftOf="parent"/>
-    <Button
-        android:id="@+id/search_button"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/itemText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="465dp"
+            android:layout_marginRight="0dp"
+            android:layout_toLeftOf="@id/searchItem"
+            android:hint="@string/hint_text"
+            android:singleLine="true" />
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/enter_button"
-        app:layout_constraintTop_toBottomOf="@+id/cocktailSearch"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:orientation="vertical">
 
+        <Button
+            android:id="@+id/searchItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="463dp"
+            android:layout_marginEnd="3dp"
+            android:text="@string/enter_button" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="match_parent"
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="134dp"
-        android:layout_marginBottom="437dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_button" />
+        android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ListView
+            android:id="@+id/food_list"
+            android:layout_width="match_parent"
+            android:layout_height="470dp"
+            android:layout_below="@+id/itemText"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="0dp" />
+
+
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/itemText"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:visibility="invisible"/>
+
+    </LinearLayout>
+</RelativeLayout>

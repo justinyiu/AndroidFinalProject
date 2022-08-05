@@ -30,6 +30,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Button;
 import android.content.Intent;
@@ -46,7 +47,7 @@ public class CocktailActivity extends AppCompatActivity {
     /**
      * list of variables in the layout
      */
-    private ListAdapter adapter;
+    private ListAdapter myAdapter;
     private ListView theList; //id is theList
     private ArrayList<Cocktail> cocktailList = new ArrayList<>();
     //private MyListAdapter myAdapter;
@@ -75,6 +76,7 @@ public class CocktailActivity extends AppCompatActivity {
         userText = findViewById(R.id.cocktailSearch);
         theList = findViewById(R.id.theList);
         cocktailProgressBar = findViewById(R.id.progressBar);
+
 
 
         cocktailProgressBar.setVisibility(View.VISIBLE);
@@ -144,13 +146,13 @@ public class CocktailActivity extends AppCompatActivity {
             }
         });
 
+        //theList.setAdapter(myAdapter = new MyListAdapter());
         /**
          * add the results from the search result to the listView
          */
-        theList.setOnClickListener({
 
 
-        });
+
     }
 
 
