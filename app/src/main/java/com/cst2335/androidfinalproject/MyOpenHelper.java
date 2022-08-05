@@ -24,6 +24,7 @@ public class MyOpenHelper extends SQLiteOpenHelper {
     public static final int VERSION_NUM = 1;
     public static final String TABLE_NAME = "Cocktails";
     public static final String COL_ID = "_id";
+    public static final String COL_NAME = "name";
     public static final String COL_PICTURE = "picture";
     public static final String COL_INSTRUCTIONS = "instructions";
     public static final String COL_INGREDIENT1 = "ingredient1";
@@ -52,6 +53,7 @@ public class MyOpenHelper extends SQLiteOpenHelper {
         Log.i(ACTIVITY_NAME, "OnCreate");
 
         db.execSQL("CREATE TABLE " + TABLE_NAME + "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COL_NAME + "TEXT NOT NULL,"
                 + COL_PICTURE + "TEXT NOT NULL,"
                 + COL_INSTRUCTIONS + "TEXT NOT NULL,"
                 + COL_INGREDIENT1 + "TEXT NOT NULL,"
