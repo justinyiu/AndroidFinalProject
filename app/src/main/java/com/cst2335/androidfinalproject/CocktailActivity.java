@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.view.LayoutInflater;
 import android.view.View;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -26,6 +28,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.os.AsyncTask;
@@ -38,6 +44,7 @@ import android.database.Cursor;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -47,9 +54,10 @@ public class CocktailActivity extends AppCompatActivity {
     /**
      * list of variables in the layout
      */
-    private ListAdapter myAdapter;
+    //private MyListAdapter myAdapter;
     private ListView theList; //id is theList
     private ArrayList<Cocktail> cocktailList = new ArrayList<>();
+    ArrayList<String>  adapter;
     //private MyListAdapter myAdapter;
     private EditText userText;
     private Button search;
@@ -57,7 +65,6 @@ public class CocktailActivity extends AppCompatActivity {
     private SQLiteDatabase myDatabase;
     private String drinkSearch;
 
-    ArrayList<String> source = new ArrayList<>(Arrays.asList("One", "Two", "Three", "Four"));
 
 
 
@@ -71,17 +78,23 @@ public class CocktailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cocktail);
 
+        ArrayList<String> source = new ArrayList<>(Arrays.asList("One", "Two", "Three", "Four"));
+
+        //cocktailList = new ArrayList<>();
+
+        cocktailList.add(new Cocktail("martini", "stir", 1));
+        cocktailList.add(new Cocktail( "cool", "noice ",2));
+
+
         // find the id's
         search = findViewById(R.id.search_button);
         userText = findViewById(R.id.cocktailSearch);
         theList = findViewById(R.id.theList);
         cocktailProgressBar = findViewById(R.id.progressBar);
-
-
-
         cocktailProgressBar.setVisibility(View.VISIBLE);
 
-
+        ArrayAdapter<String> theAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, source);
+        theList.setAdapter(theAdapter);
 
 
         myOpenHelper = new MyOpenHelper(this);
@@ -111,13 +124,15 @@ public class CocktailActivity extends AppCompatActivity {
 
 
 
+
+
+
 //**************************************************************************************************
         //TODO: add and initialize the database
         // inialize the database
         MyOpenHelper myOpener = new MyOpenHelper(this);
         myDatabase = myOpener.getWritableDatabase();
         Cursor cursor = myDatabase.rawQuery("Select * from " + MyOpenHelper.TABLE_NAME + ";", null);
-
 
         userText = findViewById(R.id.cocktailSearch);
         //EditText editText2 = findViewById(R.id.editText2);
@@ -150,8 +165,11 @@ public class CocktailActivity extends AppCompatActivity {
         /**
          * add the results from the search result to the listView
          */
+        /**
+        theList.setOnItemClickListener((parent, view, position, id) -> {
 
-
+        });
+         */
 
     }
 
@@ -232,18 +250,61 @@ public class CocktailActivity extends AppCompatActivity {
         }
 
         public String getInstructions() {
+
             return this.instructions;
         }
 
         public String getIngredients() {
+
             return this.ingredients;
         }
 
-        public long getId() { return this.id;}
+        public long getId() {
+
+            return this.id;
+        }
 
         public String toString(){
             return("message:" + this.instructions + " isSent:" + this.ingredients + " id:" + this.id);
         }
     }
 
+
+    /**
+     * try this code to add the list view
+     */
+    /**
+    public class MyListAdapter extends BaseAdapter {
+        public int getCount() {
+            return cocktailList.size();
+        }
+
+        public Cocktail getItem(int position) {
+            return cocktailList.get(position);
+        }
+
+        public long getItemId(int position) {
+            return getItem(position).getId();
+
+        }
+        public View getView(int position, View convertView, ViewGroup parent) {
+            Cocktail cocktail = getItem(position);
+            View rowView;
+            TextView textView;
+            LayoutInflater inflater = getLayoutInflater();
+
+            //if (messageList.get(position).getIsSent()) {
+            if (cocktail.getIsSent()) {
+                rowView = inflater.inflate(R.layout., parent, false);
+                textView = rowView.findViewById(R.id.textSend);
+            } else{
+                rowView = inflater.inflate(R.layout.receive_layout, parent, false);
+                textView = rowView.findViewById(R.id.textReceive);
+            }
+
+            textView.setText(msg.getMessage());
+            return rowView;
+        }
+    }
+    */
 }

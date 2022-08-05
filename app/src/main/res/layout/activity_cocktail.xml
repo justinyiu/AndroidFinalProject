@@ -13,7 +13,7 @@
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
         <EditText
-            android:id="@+id/itemText"
+            android:id="@+id/cocktailSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -21,7 +21,7 @@
             android:layout_marginStart="0dp"
             android:layout_marginTop="465dp"
             android:layout_marginRight="0dp"
-            android:layout_toLeftOf="@id/searchItem"
+            android:layout_toLeftOf="@id/search_button"
             android:hint="@string/hint_text"
             android:singleLine="true" />
     </LinearLayout>
@@ -36,7 +36,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/searchItem"
+            android:id="@+id/search_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -53,7 +53,7 @@
 
 
         <ListView
-            android:id="@+id/food_list"
+            android:id="@+id/theList"
             android:layout_width="match_parent"
             android:layout_height="470dp"
             android:layout_below="@+id/itemText"
@@ -66,7 +66,7 @@
 
 
         <ProgressBar
-            android:id="@+id/progress"
+            android:id="@+id/progressBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/itemText"
