@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import android.os.AsyncTask;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.Button;
@@ -33,7 +34,7 @@ public class CocktailActivity extends AppCompatActivity{
      */
     MyListAdapter myListAdapter;
     ListView myList;
-    ArrayList<Cocktail> cocktailList = new ArrayList<>();
+    ArrayList<String> cocktailList = new ArrayList<>();
     EditText cocktailText;
     Button searchButton;
     MyOpenHelper myOpenHelper;
@@ -83,7 +84,9 @@ public class CocktailActivity extends AppCompatActivity{
                 drinkSearch = cocktailText.getText().toString();
                 CocktailQuery cocktailQuery = new CocktailQuery();
                 cocktailQuery.execute("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + drinkSearch);
+                cocktailQuery.onProgressUpdate();
                 cocktailText.setText("");
+                myListAdapter.notifyDataSetChanged();
                 Log.i(TAG, "Name of drink: " + drinkSearch);
             }
         });
@@ -122,9 +125,11 @@ public class CocktailActivity extends AppCompatActivity{
                     String ingredient1 = objectFromArray.getString("strIngredient1");
                     String ingredient2 = objectFromArray.getString("strIngredient2");
                     String ingredient3 = objectFromArray.getString("strIngredient3");
+                    cocktailList.add(drink);
                     int j = 0;
                     j++;
                 }
+
 
 
             } catch (Exception e) {
@@ -152,7 +157,7 @@ public class CocktailActivity extends AppCompatActivity{
             return cocktailList.size();
         }
 
-        public Cocktail getItem(int position) {
+        public String getItem(int position) {
             return cocktailList.get(position);
         }
 
@@ -161,7 +166,6 @@ public class CocktailActivity extends AppCompatActivity{
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
-            Cocktail cocktail = getItem(position);
             View newView;
             TextView textView;
             LayoutInflater inflater = getLayoutInflater();
@@ -169,7 +173,7 @@ public class CocktailActivity extends AppCompatActivity{
             newView = inflater.inflate(R.layout.activity_cocktail_item, parent, false);
             textView = newView.findViewById(R.id.search_result);
 
-            textView.setText(cocktailList.get(position).getName());
+            textView.setText(cocktailList.get(position));
             return newView;
             }
         }
