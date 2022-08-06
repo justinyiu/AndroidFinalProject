@@ -28,6 +28,7 @@ public class DetailFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private Bundle dataFromActivity;
+    private String drinkName;
     private long id;
     private AppCompatActivity parentActivity;
 
@@ -66,14 +67,14 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         dataFromActivity = getArguments();
-        id = dataFromActivity.getLong(CocktailActivity.ITEM_ID);
+        drinkName = dataFromActivity.getString(CocktailActivity.ITEM_SELECTED);
 
         // Inflate the layout for this fragment
 
         View result = inflater.inflate(R.layout.fragment_detail, container, false);
 
-        TextView message = (TextView)result.findViewById(R.id.instructions);
-        message.setText(dataFromActivity.getString(CocktailActivity.ITEM_SELECTED));
+        TextView instructions = (TextView)result.findViewById(R.id.instructions);
+        instructions.setText(dataFromActivity.getString(CocktailActivity.ITEM_SELECTED));
 
         //show the id
         TextView idView = (TextView)result.findViewById(R.id.ingredient1);
