@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -40,6 +41,10 @@ public class CocktailActivity extends AppCompatActivity{
     MyOpenHelper myOpenHelper;
     SQLiteDatabase myDatabase;
     String drinkSearch;
+    DetailFragment dFragment;
+    public static final String ITEM_SELECTED = "ITEM";
+    public static final String ITEM_POSITION = "POSITION";
+    public static final String ITEM_ID = "ID";
 
 
     @Override
@@ -52,6 +57,31 @@ public class CocktailActivity extends AppCompatActivity{
         myList = findViewById(R.id.listView);
         myListAdapter = new MyListAdapter();
         myList.setAdapter(myListAdapter);
+        boolean isTablet = findViewById(R.id.fragmentLocation) != null;
+
+//**************************************************************************************************
+
+        myList.setOnItemClickListener((list, item, position, id) -> {
+            Bundle dataToPass = new Bundle();
+            dataToPass.putString(ITEM_SELECTED, String.valueOf(cocktailList.get(position)));
+            dataToPass.putInt(ITEM_POSITION, position);
+            dataToPass.putLong(ITEM_ID, id);
+
+
+            if (isTablet) {
+                dFragment = new DetailFragment();
+                dFragment.setArguments(dataToPass);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragmentLocation, dFragment)
+                        .commit();
+            } else
+            {
+                Intent nextActivity = new Intent(CocktailActivity.this, EmptyActivity.class);
+                nextActivity.putExtras(dataToPass);
+                startActivity(nextActivity);
+            }
+        });
 
 //**************************************************************************************************
 

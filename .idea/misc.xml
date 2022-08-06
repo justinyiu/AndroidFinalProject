@@ -3,11 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/16132/StudioProjects/AndroidFinalProject/app/src/main/res/layout/activity_cocktail.xml" value="0.17831813576494426" />
+        <entry key="..\:/Users/16132/StudioProjects/AndroidFinalProject/app/src/main/res/layout/activity_cocktail.xml" value="0.22" />
         <entry key="..\:/Users/16132/StudioProjects/AndroidFinalProject/app/src/main/res/layout/activity_cocktail_item.xml" value="0.2552083333333333" />
         <entry key="..\:/Users/16132/StudioProjects/AndroidFinalProject/app/src/main/res/layout/activity_empty.xml" value="0.17831813576494426" />
         <entry key="..\:/Users/16132/StudioProjects/AndroidFinalProject/app/src/main/res/layout/activity_main.xml" value="0.17831813576494426" />
-        <entry key="..\:/Users/16132/StudioProjects/AndroidFinalProject/app/src/main/res/layout/fragment_detail.xml" value="0.17831813576494426" />
+        <entry key="..\:/Users/16132/StudioProjects/AndroidFinalProject/app/src/main/res/layout/fragment_detail.xml" value="0.22" />
         <entry key="..\:/Users/16132/StudioProjects/AndroidFinalProject/app/src/main/res/layout/fragment_list.xml" value="0.17831813576494426" />
         <entry key="..\:/Users/jiayi/AndroidStudioProjects/AndroidFinalProject/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.119" />
         <entry key="..\:/Users/jiayi/AndroidStudioProjects/AndroidFinalProject/app/src/main/res/drawable/ic_launcher_background.xml" value="0.119" />
@@ -36,7 +36,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.17831813576494426" />
+        <option name="scale" value="0.22" />
       </ProjectState>
     </option>
   </component>

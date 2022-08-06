@@ -34,5 +34,11 @@
         android:inputType="textWebEditText" />
     </LinearLayout>
 
+    <FrameLayout
+        android:id="@+id/fragmentLocation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/teal_700" />
+
 
 </LinearLayout>
