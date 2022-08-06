@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import android.os.AsyncTask;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
@@ -40,6 +42,10 @@ public class CocktailActivity extends AppCompatActivity{
     MyOpenHelper myOpenHelper;
     SQLiteDatabase myDatabase;
     String drinkSearch;
+
+    public static final String ITEM_SELECTED = "ITEM";
+    public static final String ITEM_POSITION = "POSITION";
+    public static final String ITEM_ID = "ID";
 
 
     @Override
@@ -78,6 +84,7 @@ public class CocktailActivity extends AppCompatActivity{
 
         history.close();
 
+        //******************************************************************************************
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +97,27 @@ public class CocktailActivity extends AppCompatActivity{
                 Log.i(TAG, "Name of drink: " + drinkSearch);
             }
         });
-    }
+
+
+        myList.setOnItemClickListener((list, item, position, id) -> {
+            //create a bundle to pass data to the new fragment
+            Bundle dataToPass = new Bundle();
+            dataToPass.putString(ITEM_SELECTED, cocktailList.get(position) );
+            dataToPass.putInt(ITEM_POSITION, position);
+            dataToPass.putLong(ITEM_ID, id);
+
+
+            Intent nextActivity = new Intent(CocktailActivity.this, ListActivity.class);
+            nextActivity.putExtras(dataToPass); //send data to next activity
+            startActivity(nextActivity); //make the transition
+
+
+        });
+
+
+    }// end of onCreate
+
+
 //**************************************************************************************************
 
 
@@ -126,6 +153,7 @@ public class CocktailActivity extends AppCompatActivity{
                     String ingredient2 = objectFromArray.getString("strIngredient2");
                     String ingredient3 = objectFromArray.getString("strIngredient3");
                     cocktailList.add(drink);
+
                     int j = 0;
                     j++;
                 }
