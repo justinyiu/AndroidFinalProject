@@ -2,6 +2,7 @@ package com.cst2335.androidfinalproject;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -32,6 +33,7 @@ import java.util.Arrays;
 
 import android.os.AsyncTask;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.Button;
@@ -55,6 +57,7 @@ public class CocktailActivity extends AppCompatActivity{
     String drinkSearch;
     Bitmap cocktailPic;
     Toolbar myToolbar;
+    DetailFragment dFragment;
     public static final String COCKTAIL_NAME = "NAME";
     public static final String COCKTAIL_PICTURE = "PICTURE";
     public static final String COCKTAIL_INSTRUCTIONS = "INSTRUCTIONS";
@@ -92,6 +95,33 @@ public class CocktailActivity extends AppCompatActivity{
             nextActivity.putExtras(dataToPass);
             startActivity(nextActivity);
 
+        });
+//**************************************************************************************************
+
+        myList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CocktailActivity.this);
+                //Message whatWasClicked = messageList.get(position);
+                //whatWasClicked.getId()
+                alertDialogBuilder.setTitle("Do you want to add this to favourites ？")
+                        .setMessage("The selected row is:" + position + " " + "The database id is:" + id)
+                        .setNegativeButton("No", (dialog, click1)->{})
+                        .setPositiveButton("Yes", (dialog, click2)->{
+                            cocktails.remove(position);
+                            myListAdapter.notifyDataSetChanged();
+                            getSupportFragmentManager().beginTransaction().remove(dFragment).commit();
+
+                           ContentValues cv = new ContentValues();
+                           cv.put(MyOpenHelper.COL_NAME, position);
+
+
+                            myDatabase.delete(MyOpenHelper.TABLE_NAME,MyOpenHelper.COL_ID +" = ?", new String[]{Long.toString(id)});
+
+                        })
+                        .create().show();
+                return true;
+            }
         });
 
 //**************************************************************************************************
@@ -138,6 +168,8 @@ public class CocktailActivity extends AppCompatActivity{
 
         public String doInBackground(String... args) {
 
+            //clears the search
+            cocktails.clear();
             try {
                 URL url = new URL(args[0]);
 
