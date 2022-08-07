@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.cst2335.androidfinalproject.MainActivity">
+    tools:context="com.cst2335.androidfinalproject.CocktailActivity">
 
     <item
         android:id="@+id/home"
@@ -36,10 +37,10 @@
         app:showAsAction="always"/>
 
     <item
-        android:id="@+id/helpIcon"
-        android:orderInCategory="75"
-        android:icon="@drawable/help"
-        android:title="Not used, since showAsAction=always"
-        app:showAsAction="always"/>
+    android:id="@+id/helpIcon"
+    android:orderInCategory="75"
+    android:icon="@drawable/help"
+    android:title="Not used, since showAsAction=always"
+    app:showAsAction="always"/>
 
 </menu>

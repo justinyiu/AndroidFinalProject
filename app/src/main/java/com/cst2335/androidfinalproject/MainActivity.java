@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -62,16 +63,28 @@ public class MainActivity extends AppCompatActivity {
         Intent goToCocktail = new Intent(MainActivity.this, CocktailActivity.class);
         switch(item.getItemId())
         {
-            case R.id.cocktailMenu:
-                message = "You clicked item 1";
+            case R.id.home:
+            case R.id.homeIcon:
+                message = "You're currently on the home page";
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                break;
+            case R.id.search:
+                message = "You clicked search, " + "\n" + "sending you to search page";
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            case R.id.searchIcon:
+                message = "You clicked on the search icon, " + "\n " + " sending you to search page";
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
                 startActivity(goToCocktail);
                 break;
-            case R.id.cocktailIcon:
-                message = "You clicked on the search";
-                startActivity(goToCocktail);
+            case R.id.help:
+            case R.id.helpIcon:
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                alertDialogBuilder.setTitle("Instructions")
+                        .setMessage("To search the cocktail database click on the cocktail icon or button.")
+                        .setPositiveButton("Close", (dialog, click1) -> {})
+                        .create().show();
                 break;
         }
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         return true;
     }
 
