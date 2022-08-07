@@ -1,72 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".DetailFragment"
-    android:id="@+id/fragmentLocation">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <ImageView
-                android:id="@+id/thumbnail"
-                android:layout_gravity="fill_horizontal"
-                android:layout_width="wrap_content"
+                android:id="@+id/image_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/thumbnail" />
+                android:adjustViewBounds="true"
+                android:src="@mipmap/ic_launcher"
+                android:layout_marginTop="10dp"/>
+
             <TextView
-                android:id="@+id/instruction"
-                android:layout_width="wrap_content"
+                android:id="@+id/info"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="instruction"
-                />
+                android:text=""
+                android:layout_marginTop="10dp"/>
+
             <TextView
-            android:id="@+id/ingredients1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ingredients"
-            />
-            <TextView
-                android:id="@+id/ingredients2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ingredients"
-                />
+                android:text="first 3 ingredients"
+                android:layout_marginTop="10dp"
+                android:textSize="25sp"/>
+
             <TextView
-                android:id="@+id/ingredients3"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ingredients"
-                />
+                android:id="@+id/first_ingredient"
+                android:gravity="right"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/second_ingredient"
+                android:gravity="right"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/third_ingredient"
+                android:gravity="right"
+                android:layout_marginTop="10dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:id="@+id/edit_text" />
+
+            <Button
+                android:id="@+id/save_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="save edit text"
+                android:layout_gravity="center_horizontal"/>
+
+            <Button
+                android:id="@+id/save_to_database"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="save to database"
+                android:layout_gravity="center_horizontal"/>
+
+            <Button
+                android:id="@+id/delete_from_database"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="delete from database"
+                android:layout_gravity="center_horizontal"/>
+
         </LinearLayout>
-        <RelativeLayout
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <Button
-                    android:id="@+id/saveBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="112dp"
-                    android:text="@string/save"
-                    />
+    </ScrollView>
 
-                <Button
-                    android:id="@+id/deleteBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="112dp"
-                    android:text="@string/delete" />
-            </LinearLayout>
-        </RelativeLayout>
-    </RelativeLayout>
-</FrameLayout>
+    <ProgressBar
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="gone"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

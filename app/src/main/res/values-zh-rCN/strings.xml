@@ -21,4 +21,9 @@
     <string name="save">保存</string>
     <string name="delete">删除</string>
 
+    <string name="detail_has_no_intent"> intent为空！</string>
+    <string name="detail_has_no_id">id为空!</string>
+    <string name="detail_alert_confirm">确定</string>
+    <string name="detail_delete_database_confirm">是否确定从数据库中删除明细？</string>
+
 </resources>
