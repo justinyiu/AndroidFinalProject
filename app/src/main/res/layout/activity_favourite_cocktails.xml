@@ -7,4 +7,9 @@
     android:id="@+id/favourite_cocktails"
     tools:context=".FavouriteCocktails">
 
+    <ListView
+        android:id="@+id/favListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </FrameLayout>

@@ -12,10 +12,6 @@ import android.util.Log;
  */
 public class MyOpenHelper extends SQLiteOpenHelper {
 
-    /**
-     * This class *should* be completed
-     */
-
 
     /**
      * Variables needed for the database
@@ -23,15 +19,15 @@ public class MyOpenHelper extends SQLiteOpenHelper {
 
     private static final String ACTIVITY_NAME = "MyOpenHelper";
     public static final String FILENAME = "MyDatabase";
-    public static final int VERSION_NUM = 1;
+    public static final int VERSION_NUM = 22;
     public static final String TABLE_NAME = "Cocktails";
-    public static final String COL_ID = "_id";
-    public static final String COL_NAME = "name";
-    public static final String COL_PICTURE = "picture";
-    public static final String COL_INSTRUCTIONS = "instructions";
-    public static final String COL_INGREDIENT1 = "ingredient1";
-    public static final String COL_INGREDIENT2 = "ingredient2";
-    public static final String COL_INGREDIENT3 = "ingredient3";
+    public static final String COL_ID = "ID";
+    public static final String COL_NAME = "NAME";
+    public static final String COL_PICTURE = "PICTURE";
+    public static final String COL_INSTRUCTIONS = "INSTRUCTIONS";
+    public static final String COL_INGREDIENT1 = "INGREDIENT1";
+    public static final String COL_INGREDIENT2 = "INGREDIENT2";
+    public static final String COL_INGREDIENT3 = "INGREDIENT3";
 
 
     /**
@@ -54,17 +50,19 @@ public class MyOpenHelper extends SQLiteOpenHelper {
          */
         Log.i(ACTIVITY_NAME, "OnCreate");
 
+        //String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                //"NAME TEXT, " + " INSTRUCTIONS TEXT," + " INGREDIENT1 TEXT, " + " INGREDIENT2 TEXT, " + " INGREDIENT3 TEXT) ";
+
+        db.execSQL("CREATE TABLE Cocktails(ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, INSTRUCTIONS TEXT, INGREDIENT1 TEXT, INGREDIENT2 TEXT, INGREDIENT3 TEXT)");
+
+        /**
         db.execSQL("CREATE TABLE " + TABLE_NAME + "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COL_NAME + " TEXT,"
                 + COL_INSTRUCTIONS + " TEXT,"
                 + COL_INGREDIENT1 + " TEXT,"
                 + COL_INGREDIENT2 + " TEXT,"
                 + COL_INGREDIENT3 + " TEXT);");
-        /**
-         * if the above code does not create the table successfully, then try the code below
-         */
-       // db.execSQL(String.format("Create table %s(%s integer primary key autoincrement, %s text, %s INTEGER);"
-       //         ,TABLE_NAME, COL_ID, COL_PICTURE, COL_INSTRUCTIONS, COL_INGREDIENTS));
+      */
     }
 
     @Override
@@ -74,29 +72,31 @@ public class MyOpenHelper extends SQLiteOpenHelper {
         this.onCreate(db);
     }
 
-    /**
-    public boolean insertCocktailData(String name,String picture, String instructions, String ing1, String ing2, String ing3) {
+
+
+    public boolean addData (String drinkName,String drinkInstructions, String ingredient1, String ingredient2, String ingredient3) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("name", name);
-        contentValues.put("pictures", picture);
-        contentValues.put("instructions", instructions);
-        contentValues.put("ing1", ing1);
-        contentValues.put("ing2", ing2);
-        contentValues.put("ing3", ing3);
-        long result = db.insert("Cocktails",null,contentValues);
+        ContentValues cv = new ContentValues();
+        cv.put(COL_NAME, drinkName);
+        cv.put(COL_INSTRUCTIONS, drinkInstructions);
+        cv.put(COL_INGREDIENT1, ingredient1);
+        cv.put(COL_INGREDIENT2, ingredient2);
+        cv.put(COL_INGREDIENT3, ingredient3);
+
+        long result = db.insert(TABLE_NAME, null, cv);
+
         if (result == -1) {
             return false;
         }
-        else {
+        else  {
             return true;
         }
     }
-     */
+
 
     public Cursor getData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM Cocktails", null);
-        return cursor;
+        Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        return data;
     }
 }

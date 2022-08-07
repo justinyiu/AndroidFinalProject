@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +21,8 @@ import android.widget.TextView;
  * create an instance of this fragment.
  */
 public class DetailFragment extends Fragment {
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,6 +40,7 @@ public class DetailFragment extends Fragment {
     private String ingredient2;
     private String ingredient3;
     private AppCompatActivity parentActivity;
+
 
     public DetailFragment() {
         // Required empty public constructor
@@ -63,6 +67,8 @@ public class DetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -75,6 +81,7 @@ public class DetailFragment extends Fragment {
         dataFromActivity = getArguments();
         //drinkName = dataFromActivity.getString(CocktailActivity.ITEM_SELECTED);
 
+        MyOpenHelper db = new MyOpenHelper(getActivity());
 
         View result = inflater.inflate(R.layout.fragment_detail, container, false);
 
@@ -101,6 +108,33 @@ public class DetailFragment extends Fragment {
             getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
 
         });
+
+        Button saveButton = (Button)result.findViewById(R.id.saveDrink);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String drinkName = name.getText().toString();
+                String drinkIns = instructions.getText().toString();
+                String drinkIng1 = ing1.getText().toString();
+                String drinkIng2 = ing2.getText().toString();
+                String drinkIng3 = ing3.getText().toString();
+
+                Boolean checkInsertData = db.addData(drinkName, drinkIns, drinkIng1, drinkIng2, drinkIng3);
+                if (checkInsertData==true)
+                {
+                    Toast.makeText(getActivity().getApplicationContext(), "New entry inserted", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(getActivity().getApplicationContext(), "No entry inserted", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+        Button favButton = (Button) result.findViewById(R.id.goToFav);
+
+
+
 
         return result;
     }

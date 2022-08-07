@@ -13,7 +13,7 @@ class Cocktail {
     String ingredient3;
 
 
-    public Cocktail(long id, String name, String picture, String instructions,
+    public Cocktail(String name, String picture, String instructions,
                     String ingredient1, String ingredient2, String ingredient3) {
         super();
         this.id = id;
@@ -67,7 +67,7 @@ class Cocktail {
             String ingredient1 = c.getString(ing1Index);
             String ingredient2 = c.getString(ing2Index);
             String ingredient3 = c.getString(ing3Index);
-            rowValue.add(new Cocktail(id, name, picture, instructions, ingredient1, ingredient2, ingredient3));
+            rowValue.add(new Cocktail(name, picture, instructions, ingredient1, ingredient2, ingredient3));
             c.moveToNext();
         }
 

@@ -208,9 +208,9 @@ public class CocktailActivity extends AppCompatActivity{
                     newRowValues.put(MyOpenHelper.COL_INGREDIENT2, ingredient2);
                     newRowValues.put(MyOpenHelper.COL_INGREDIENT3, ingredient3);
 
-                    long newId = myDatabase.insert(MyOpenHelper.TABLE_NAME,null, newRowValues);
+                    //long newId = myDatabase.insert(MyOpenHelper.TABLE_NAME,null, newRowValues);
 
-                    Cocktail newCocktail = new Cocktail(newId, name, picture, instructions,
+                    Cocktail newCocktail = new Cocktail(name, picture, instructions,
                             ingredient1, ingredient2,ingredient3);
 
                     cocktails.add(newCocktail);
