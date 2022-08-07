@@ -1,5 +1,6 @@
 package com.cst2335.androidfinalproject;
 
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -29,7 +31,11 @@ public class DetailFragment extends Fragment {
     private String mParam2;
     private Bundle dataFromActivity;
     private String drinkName;
-    private long id;
+    private String thumbnail;
+    private String instructions;
+    private String ingredient1;
+    private String ingredient2;
+    private String ingredient3;
     private AppCompatActivity parentActivity;
 
     public DetailFragment() {
@@ -67,28 +73,33 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         dataFromActivity = getArguments();
-        drinkName = dataFromActivity.getString(CocktailActivity.ITEM_SELECTED);
+        //drinkName = dataFromActivity.getString(CocktailActivity.ITEM_SELECTED);
 
-        // Inflate the layout for this fragment
 
         View result = inflater.inflate(R.layout.fragment_detail, container, false);
 
+        TextView name = (TextView)result.findViewById(R.id.name);
+        name.setText(dataFromActivity.getString(CocktailActivity.COCKTAIL_NAME));
+
+        ImageView picture = (ImageView)result.findViewById(R.id.picture);
+        //picture.setImageBitmap(dataFromActivity.get(CocktailActivity.COCKTAIL_PICTURE));
+
         TextView instructions = (TextView)result.findViewById(R.id.instructions);
-        instructions.setText(dataFromActivity.getString(CocktailActivity.ITEM_SELECTED));
+        instructions.setText(dataFromActivity.getString(CocktailActivity.COCKTAIL_INSTRUCTIONS));
 
-        //show the id
-        TextView idView = (TextView)result.findViewById(R.id.ingredient1);
-        idView.setText("ID =" + id);
+        TextView ing1 = (TextView)result.findViewById(R.id.ingredient1);
+        ing1.setText("Ingredient 1: " + dataFromActivity.get(CocktailActivity.COCKTAIL_INGREDIENT1));
+        TextView ing2 = (TextView)result.findViewById(R.id.ingredient2);
+        ing2.setText("Ingredient 3: " + dataFromActivity.get(CocktailActivity.COCKTAIL_INGREDIENT2));
+        TextView ing3 = (TextView)result.findViewById(R.id.ingredient3);
+        ing3.setText("Ingredient 3: " + dataFromActivity.get(CocktailActivity.COCKTAIL_INGREDIENT3));
 
-        //get the check box
 
-
-        //get the hide button
         Button hideButton = (Button) result.findViewById(R.id.hide);
         hideButton.setOnClickListener( clk -> {
-            //tell the parent activity to hide
 
             getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+
         });
 
         return result;
