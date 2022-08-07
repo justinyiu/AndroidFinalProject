@@ -26,9 +26,12 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.AndroidFinalProject.NoActionBar">
+
+        </activity>
+        <activity android:name=".DetailActivity" android:exported="true"
+            android:label="@string/detail_label">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

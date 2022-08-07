@@ -2,10 +2,13 @@ package com.cst2335.androidfinalproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
@@ -20,7 +23,7 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ProgressBar progressBar = findViewById(R.id.progress_bar);
 
@@ -41,6 +44,31 @@ public class DetailActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.GONE);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detail, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.detail_author:
+                showAlertDialog(R.string.detail_menu_author_content);
+                break;
+            case R.id.detail_desc:
+                showAlertDialog(R.string.detail_menu_description_content);
+                break;
+            case R.id.detail_version:
+                showAlertDialog(R.string.detail_menu_version_content);
+                break;
+            case android.R.id.home:
+                this.finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void showAlertDialog(@StringRes int resId) {

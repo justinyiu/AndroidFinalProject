@@ -28,6 +28,13 @@
     <string name="detail_has_no_id">id is null !</string>
     <string name="detail_alert_confirm">confirm</string>
     <string name="detail_delete_database_confirm">Are you sure to delete detail from database?</string>
+    <string name="detail_menu_author">author</string>
+    <string name="detail_menu_description">description</string>
+    <string name="detail_menu_version">version</string>
+    <string name="detail_menu_author_content">lian0094</string>
+    <string name="detail_menu_description_content">this is detail info</string>
+    <string name="detail_menu_version_content">V1.0.0</string>
+    <string name="detail_label">detail</string>
 
 
 </resources>
