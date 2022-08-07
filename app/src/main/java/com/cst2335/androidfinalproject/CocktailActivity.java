@@ -2,6 +2,7 @@ package com.cst2335.androidfinalproject;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -72,10 +73,12 @@ public class CocktailActivity extends AppCompatActivity{
         cocktailText = findViewById(R.id.cocktailSearch);
         myList = findViewById(R.id.listView);
 
-        myToolbar = (Toolbar)findViewById(R.id.my_toolbar);
+        myToolbar = findViewById(R.id.my_toolbarCocktail);
+        setSupportActionBar(myToolbar);
 
         myListAdapter = new MyListAdapter();
         myList.setAdapter(myListAdapter);
+
 
 //**************************************************************************************************
 
@@ -102,6 +105,7 @@ public class CocktailActivity extends AppCompatActivity{
             cocktailQuery.execute("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + drinkSearch);
             cocktailText.setText("");
             myListAdapter.notifyDataSetChanged();
+
         });
 
 //**************************************************************************************************
@@ -158,16 +162,15 @@ public class CocktailActivity extends AppCompatActivity{
 
                 for (int i = 0; i < drinksArray.length(); i++) {
                     JSONObject objectFromArray = drinksArray.getJSONObject(i);
-                    String drink = objectFromArray.getString("strDrink");
+                    String name = objectFromArray.getString("strDrink");
                     String picture = objectFromArray.getString("strDrinkThumb");
                     String instructions = objectFromArray.getString("strInstructions");
                     String ingredient1 = objectFromArray.getString("strIngredient1");
                     String ingredient2 = objectFromArray.getString("strIngredient2");
                     String ingredient3 = objectFromArray.getString("strIngredient3");
 
-                    //cocktailList.add(drinksArray);
                     ContentValues newRowValues = new ContentValues();
-                    newRowValues.put(MyOpenHelper.COL_NAME, drink);
+                    newRowValues.put(MyOpenHelper.COL_NAME, name);
                     newRowValues.put(MyOpenHelper.COL_PICTURE, picture);
                     newRowValues.put(MyOpenHelper.COL_INSTRUCTIONS, instructions);
                     newRowValues.put(MyOpenHelper.COL_INGREDIENT1, ingredient1);
@@ -176,7 +179,7 @@ public class CocktailActivity extends AppCompatActivity{
 
                     long newId = myDatabase.insert(MyOpenHelper.TABLE_NAME,null, newRowValues);
 
-                    Cocktail newCocktail = new Cocktail(newId, drink, picture, instructions,
+                    Cocktail newCocktail = new Cocktail(newId, name, picture, instructions,
                             ingredient1, ingredient2,ingredient3);
 
                     cocktails.add(newCocktail);
@@ -217,8 +220,8 @@ public class CocktailActivity extends AppCompatActivity{
 
             Cocktail thisRow = getItem(position);
             View newView = getLayoutInflater().inflate(R.layout.activity_cocktail_item, parent, false);
-            TextView cocktailName = (TextView)newView.findViewById(R.id.search_result);
-            cocktailName.setText(thisRow.getName());
+            TextView cocktailName = newView.findViewById(R.id.search_result);
+            cocktailName.setText(cocktails.get(position).name);
 
             return newView;
 
@@ -226,25 +229,46 @@ public class CocktailActivity extends AppCompatActivity{
         }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
+        inflater.inflate(R.menu.menu_cocktail, menu);
         return true;
 
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
         String message = null;
+        Intent goToHome = new Intent(CocktailActivity.this, MainActivity.class);
+
         switch(item.getItemId())
         {
-            case R.id.cocktailMenu:
-                message = "You clicked item 1";
+            case R.id.home:
+                message = "You click home, " + "\n" + "sending you to home page";
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                startActivity(goToHome);
                 break;
-            case R.id.cocktailIcon:
-                message = "You clicked on the search";
+            case R.id.homeIcon:
+                message = "You clicked on the home icon, " + "\n " + " sending you to the home page";
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                startActivity(goToHome);
+                break;
+            case R.id.search:
+            case R.id.searchIcon:
+                message = "You're currently searching for cocktails";
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                break;
+            case R.id.help:
+            case R.id.helpIcon:
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CocktailActivity.this);
+                alertDialogBuilder.setTitle("Instructions")
+                        .setMessage("Enter a word associated with a cocktail you would like to search." + "\n" +
+                            "After you have entered the word click the 'SEARCH' button and the results will display" + "\n" +
+                            "If you would like to view the image, instructions and ingredients of the drink" +
+                            "click on one of the items from the list" + "\n\n" +
+                            "For example entering the word apple will show all cocktails with apple in the name")
+                        .setPositiveButton("Close", (dialog, click1) -> {})
+                        .create().show();
                 break;
         }
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         return true;
     }
 

@@ -1,5 +1,6 @@
 package com.cst2335.androidfinalproject;
 
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 
@@ -73,9 +74,6 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         dataFromActivity = getArguments();
-        //drinkName = dataFromActivity.getString(CocktailActivity.ITEM_SELECTED);
-
-
         View result = inflater.inflate(R.layout.fragment_detail, container, false);
 
         TextView name = (TextView)result.findViewById(R.id.name);
@@ -94,13 +92,12 @@ public class DetailFragment extends Fragment {
         TextView ing3 = (TextView)result.findViewById(R.id.ingredient3);
         ing3.setText("Ingredient 3: " + dataFromActivity.get(CocktailActivity.COCKTAIL_INGREDIENT3));
 
-
-        Button hideButton = (Button) result.findViewById(R.id.hide);
+        /*Button hideButton = (Button) result.findViewById(R.id.hide);
         hideButton.setOnClickListener( clk -> {
 
             getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
 
-        });
+        });*/
 
         return result;
     }
