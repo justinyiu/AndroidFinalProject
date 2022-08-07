@@ -238,6 +238,8 @@ public class CocktailActivity extends AppCompatActivity {
         //type 3
         public void onPostExecute(String fromDoInBackground) {
             Log.i("HTTP", fromDoInBackground);
+            //theList.setAdapter(adapter);
+           // for(int i=1; 1<=)
         }
     }
 
