@@ -21,10 +21,4 @@
         android:title="@string/detail_menu_version"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/detail_favourite"
-        android:orderInCategory="100"
-        android:title="@string/detail_menu_favourite"
-        app:showAsAction="never" />
-
 </menu>

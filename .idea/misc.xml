@@ -3,9 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Mine/Projects/payMoney/Eva/AndroidFinalProject/app/src/main/res/layout/activity_detail.xml" value="0.35885416666666664" />
+        <entry key="..\:/Mine/Projects/payMoney/Eva/AndroidFinalProject/app/src/main/res/layout/activity_cocktail.xml" value="0.294570329200513" />
+        <entry key="..\:/Mine/Projects/payMoney/Eva/AndroidFinalProject/app/src/main/res/layout/activity_detail.xml" value="0.18" />
+        <entry key="..\:/Mine/Projects/payMoney/Eva/AndroidFinalProject/app/src/main/res/layout/activity_favourite.xml" value="0.294570329200513" />
+        <entry key="..\:/Mine/Projects/payMoney/Eva/AndroidFinalProject/app/src/main/res/layout/activity_main.xml" value="0.294570329200513" />
+        <entry key="..\:/Mine/Projects/payMoney/Eva/AndroidFinalProject/app/src/main/res/layout/fragment_detail.xml" value="0.11399443929564411" />
+        <entry key="..\:/Mine/Projects/payMoney/Eva/AndroidFinalProject/app/src/main/res/layout/list_item_favourite.xml" value="0.2937152629328773" />
         <entry key="..\:/Mine/Projects/payMoney/Eva/AndroidFinalProject/app/src/main/res/menu/menu_detail.xml" value="0.294570329200513" />
         <entry key="..\:/Mine/Projects/payMoney/Eva/AndroidFinalProject/app/src/main/res/menu/menu_detail5.xml" value="0.1" />
+        <entry key="..\:/Mine/Projects/payMoney/Eva/AndroidFinalProject/app/src/main/res/menu/menu_favourite.xml" value="0.1" />
         <entry key="..\:/Mine/Projects/payMoney/Eva/AndroidFinalProject/app/src/main/res/menu/menu_main.xml" value="0.1" />
         <entry key="..\:/Users/jiayi/AndroidStudioProjects/AndroidFinalProject/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.119" />
         <entry key="..\:/Users/jiayi/AndroidStudioProjects/AndroidFinalProject/app/src/main/res/drawable/ic_launcher_background.xml" value="0.119" />

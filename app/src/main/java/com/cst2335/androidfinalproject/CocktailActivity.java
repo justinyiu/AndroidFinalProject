@@ -1,23 +1,14 @@
 package com.cst2335.androidfinalproject;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.preference.PreferenceManager;
 import android.view.View;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import com.cst2335.androidfinalproject.databinding.ActivityMainBinding;
+
 import java.io.InputStreamReader;
 import java.net.URL;
 import org.json.JSONArray;
@@ -27,10 +18,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
-import android.view.Menu;
-import android.view.MenuItem;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.EditText;
@@ -40,8 +28,6 @@ import android.database.Cursor;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-
 
 
 public class CocktailActivity extends AppCompatActivity {
@@ -152,9 +138,6 @@ public class CocktailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-                Intent goToFragment = new Intent(CocktailActivity.this, DetailFragment.class );
-                startActivity(goToFragment);
             }
         });
 
@@ -165,7 +148,25 @@ public class CocktailActivity extends AppCompatActivity {
         String previousDrink = prev.getString("PreviousDrink", "");
         EditText lastDrink = findViewById(R.id.cocktailSearch);
         lastDrink.setText(previousDrink);
-        search.setOnClickListener(bt -> savePreviousDrink(lastDrink.getText().toString()));
+        search.setOnClickListener(bt -> {
+            savePreviousDrink(lastDrink.getText().toString());
+
+            // TODO JUST TEST ACTIVITY JUMP
+            String idDrink = "11046";
+            String strInstructions = "Shake all ingredients with ice, strain into a cocktail glass, and serve.";
+            String strDrinkThumb = "https:\\/\\/www.thecocktaildb.com\\/images\\/media\\/drink\\/sbffau1504389764.jpg";
+            String strIngredient1 = "Applejack";
+            String strIngredient2 = "Triple sec";
+            String strIngredient3 = "Lemon juice";
+            Intent intent = new Intent(CocktailActivity.this, DrinkDetailActivity.class);
+            intent.putExtra("idDrink", idDrink);
+            intent.putExtra("strInstructions", strInstructions);
+            intent.putExtra("strDrinkThumb", strDrinkThumb);
+            intent.putExtra("strIngredient1", strIngredient1);
+            intent.putExtra("strIngredient2", strIngredient2);
+            intent.putExtra("strIngredient3", strIngredient3);
+            startActivity(intent);
+        });
     }
 
     /**

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:scaleType="fitXY"
+        android:id="@+id/image_view" />
+
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:lines="3"
+        android:ellipsize="end"
+        android:layout_toRightOf="@id/image_view"
+        android:layout_marginLeft="10dp"
+        />
+
+    <TextView
+        android:id="@+id/nutrients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/image_view"
+        android:text="Ingredients"
+        android:textStyle="bold" />
+    
+    <TextView
+        android:id="@+id/first_ingredient_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/image_view"
+        android:layout_below="@id/nutrients"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/second_ingredient_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/image_view"
+        android:layout_below="@id/first_ingredient_textView"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/third_ingredient_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/image_view"
+        android:layout_below="@id/second_ingredient_textView"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" />
+
+
+
+</RelativeLayout>

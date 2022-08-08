@@ -2,6 +2,7 @@ package com.cst2335.androidfinalproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 
-public class DetailActivity extends AppCompatActivity {
+public class DrinkDetailActivity extends AppCompatActivity {
+
+    private DrinkDetailFragment detailFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,18 +35,26 @@ public class DetailActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.detail_has_no_intent, Toast.LENGTH_SHORT).show();
             return;
         }
-        long id = intent.getLongExtra("id", -1);
-        if (id == -1){
+        String idDrink = intent.getStringExtra("idDrink");
+        if (TextUtils.isEmpty(idDrink)){
             Snackbar.make(getWindow().getDecorView(), R.string.detail_has_no_intent, Snackbar.LENGTH_SHORT).show();
             return;
         }
-        DetailFragment detailFragment = new DetailFragment();
+        detailFragment = new DrinkDetailFragment();
         detailFragment.setIntent(intent);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frame_layout, detailFragment).commit();
+                .add(R.id.frame_layout, detailFragment).commit();
 
         progressBar.setVisibility(View.GONE);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (detailFragment != null){
+            detailFragment.onReloadButtonStatus();
+        }
     }
 
     @Override
@@ -63,6 +74,9 @@ public class DetailActivity extends AppCompatActivity {
                 break;
             case R.id.detail_version:
                 showAlertDialog(R.string.detail_menu_version_content);
+                break;
+            case R.id.detail_favourite:
+                startActivity(new Intent(DrinkDetailActivity.this, FavouriteActivity.class));
                 break;
             case android.R.id.home:
                 this.finish();
