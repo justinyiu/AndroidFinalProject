@@ -93,6 +93,20 @@ public class MyOpenHelper extends SQLiteOpenHelper {
         }
     }
 
+//    public boolean queryDrink(String drinkName) {
+//        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME + "WHERE " + COL_NAME + " = ?" , new String[]{drinkName});
+//        boolean isHas = false;
+//        if (cursor != null && cursor.getCount() > 0) {
+//            isHas = true;
+//            cursor.close();
+//        }
+//        return isHas;
+//    }
+//
+//    public void deleteDrink(String drinkName) {
+//        getWritableDatabase().execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COL_NAME + " = ? ", new Object[]{drinkName});
+//    }
+
 
     public Cursor getData() {
         SQLiteDatabase db = this.getWritableDatabase();

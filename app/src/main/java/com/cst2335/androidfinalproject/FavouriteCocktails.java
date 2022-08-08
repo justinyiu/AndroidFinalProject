@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -13,8 +14,10 @@ import java.util.ArrayList;
 public class FavouriteCocktails extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<String> drinkName, drinkInstructions, drinkIng1, drinkIng2, drinkIng3;
+    String idDrink;
     MyOpenHelper DB;
     MyAdapter adapter;
+    boolean isSaved;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,17 @@ public class FavouriteCocktails extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         displayData();
 
-
+//        Button deleteButton = findViewById(R.id.deleteButton);
+//
+//
+//        deleteButton.setOnClickListener( clk -> {
+//            isSaved = DB.queryDrink(idDrink);
+//            if (isSaved) {
+//                DB.deleteDrink(idDrink);
+//            }
+//            isSaved = DB.queryDrink(idDrink);
+//
+//        });
 
     }
 

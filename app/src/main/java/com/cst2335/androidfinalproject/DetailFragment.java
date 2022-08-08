@@ -23,6 +23,10 @@ import android.widget.Toast;
  */
 public class DetailFragment extends Fragment {
 
+    boolean isSaved;
+    MyOpenHelper DB;
+    String idDrink;
+
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -102,13 +106,21 @@ public class DetailFragment extends Fragment {
         TextView ing3 = (TextView)result.findViewById(R.id.ingredient3);
         ing3.setText("Ingredient 3: " + dataFromActivity.get(CocktailActivity.COCKTAIL_INGREDIENT3));
 
+//
+//        Button hideButton = (Button) result.findViewById(R.id.hide);
+//        hideButton.setOnClickListener( clk -> {
+//
+//                isSaved = DB.queryDrink(idDrink);
+//                if (isSaved) {
+//                    DB.deleteDrink(idDrink);
+//                }
+//                isSaved = DB.queryDrink(idDrink);
+//       });
 
-        Button hideButton = (Button) result.findViewById(R.id.hide);
-        hideButton.setOnClickListener( clk -> {
 
-            getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
 
-        });
+
+
 
         Button saveButton = (Button)result.findViewById(R.id.saveDrink);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -137,11 +149,6 @@ public class DetailFragment extends Fragment {
             Intent goToFavourite = new Intent(getActivity().getApplicationContext(), FavouriteCocktails.class);
             startActivity(goToFavourite);
         });
-
-
-
-
-
 
         return result;
     }
