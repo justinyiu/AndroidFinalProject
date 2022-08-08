@@ -7,9 +7,10 @@
     android:id="@+id/favourite_cocktails"
     tools:context=".FavouriteCocktails">
 
-    <ListView
-        android:id="@+id/favListView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
+
 
 </FrameLayout>

@@ -1,5 +1,6 @@
 package com.cst2335.androidfinalproject;
 
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 
@@ -132,6 +133,12 @@ public class DetailFragment extends Fragment {
         });
 
         Button favButton = (Button) result.findViewById(R.id.goToFav);
+        favButton.setOnClickListener( clk -> {
+            Intent goToFavourite = new Intent(getActivity().getApplicationContext(), FavouriteCocktails.class);
+            startActivity(goToFavourite);
+        });
+
+
 
 
 
