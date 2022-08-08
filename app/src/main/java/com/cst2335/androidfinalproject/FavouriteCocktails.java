@@ -32,6 +32,8 @@ public class FavouriteCocktails extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         displayData();
 
+
+
     }
 
     private void displayData() {
