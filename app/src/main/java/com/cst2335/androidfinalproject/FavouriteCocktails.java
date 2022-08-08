@@ -45,11 +45,11 @@ public class FavouriteCocktails extends AppCompatActivity {
         {
             while(cursor.moveToNext())
             {
-                drinkName.add(cursor.getString(0));
-                drinkInstructions.add(cursor.getString(1));
-                drinkIng1.add(cursor.getString(2));
-                drinkIng2.add(cursor.getString(3));
-                drinkIng3.add(cursor.getString(4));
+                drinkName.add(cursor.getString(1));
+                drinkInstructions.add(cursor.getString(2));
+                drinkIng1.add(cursor.getString(3));
+                drinkIng2.add(cursor.getString(4));
+                drinkIng3.add(cursor.getString(5));
             }
         }
     }
