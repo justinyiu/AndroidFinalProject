@@ -40,6 +40,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.ing2_id.setText(String.valueOf(drinkIng2.get(position)));
         holder.ing3_id.setText(String.valueOf(drinkIng3.get(position)));
 
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                return false;
+            }
+        });
+
 
     }
 
