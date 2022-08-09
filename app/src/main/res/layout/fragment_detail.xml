@@ -3,70 +3,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailFragment"
-    android:id="@+id/fragmentLocation">
+    tools:context=".DetailFragment">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
             <ImageView
-                android:id="@+id/thumbnail"
-                android:layout_gravity="fill_horizontal"
+                android:id="@+id/picture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/thumbnail" />
+
             <TextView
-                android:id="@+id/instruction"
+                android:id="@+id/instructions"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="instruction"
-                />
+                android:layout_height="wrap_content"/>
+
             <TextView
-            android:id="@+id/ingredients1"
+            android:id="@+id/ingredient1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ingredients"
-            />
+            android:layout_height="wrap_content" />
+
             <TextView
-                android:id="@+id/ingredients2"
+                android:id="@+id/ingredient2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ingredients"
-                />
+                android:layout_height="wrap_content" />
+
             <TextView
-                android:id="@+id/ingredients3"
+                android:id="@+id/ingredient3"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/hide"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ingredients"
-                />
+                android:text="Hide"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"/>
+            <Button
+                android:id="@+id/saveDrink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp" />
+
+            <Button
+                android:id="@+id/goToFav"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Go To Favourites"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp" />
+
         </LinearLayout>
-        <RelativeLayout
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <Button
-                    android:id="@+id/saveBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="112dp"
-                    android:text="@string/save"
-                    />
-
-                <Button
-                    android:id="@+id/deleteBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="112dp"
-                    android:text="@string/delete" />
-            </LinearLayout>
-        </RelativeLayout>
-    </RelativeLayout>
 </FrameLayout>

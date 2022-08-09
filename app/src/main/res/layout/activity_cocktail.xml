@@ -1,77 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:orientation="vertical"
     tools:context=".CocktailActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbarCocktail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/teal_200"
+        android:gravity="top"/>
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:transcriptMode="alwaysScroll"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
-        <EditText
-            android:id="@+id/cocktailSearch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="465dp"
-            android:layout_marginRight="0dp"
-            android:layout_toLeftOf="@id/search_button"
-            android:hint="@string/hint_text"
-            android:singleLine="true" />
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="bottom">
 
-
-    <LinearLayout
+    <Button
+        android:id="@+id/search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp"
-        android:orientation="vertical">
+        android:text="@string/enter_button" />
 
-        <Button
-            android:id="@+id/search_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="463dp"
-            android:layout_marginEnd="3dp"
-            android:text="@string/enter_button" />
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/cocktailSearch"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-
-        <ListView
-            android:id="@+id/theList"
-            android:layout_width="match_parent"
-            android:layout_height="470dp"
-            android:layout_below="@+id/itemText"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="false"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="0dp" />
-
-
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/itemText"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:visibility="invisible"/>
-
+        android:layout_weight="3"
+        android:hint="@string/hint_text"
+        android:inputType="textWebEditText" />
     </LinearLayout>
-</RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/fragmentLocation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/teal_700" />
+
+
+</LinearLayout>

@@ -16,11 +16,15 @@
         android:theme="@style/Theme.AndroidFinalProject"
         tools:targetApi="31">
         <activity
-            android:name=".MyOpenHelper"
+            android:name=".FavouriteCocktails"
+            android:exported="false" />
+        <activity
+            android:name=".EmptyActivity"
             android:exported="false" />
         <activity
             android:name=".CocktailActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AndroidFinalProject.NoActionBar"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
