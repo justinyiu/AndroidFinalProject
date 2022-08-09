@@ -9,9 +9,9 @@
     <string name="enter_button">Search</string>
     <string name="name">Drink Name:</string>
     <string name="drinkinstructions">Instructions:</string>
-    <string name="ingredient1">Ingredient 1: </string>
-    <string name="ingredient2">Ingredient 2: </string>
-    <string name="ingredient3">Ingredient 3: </string>
+    <string name="ingredient1"> </string>
+    <string name="ingredient2"> </string>
+    <string name="ingredient3"> </string>
     <string name ="hide">Hide</string>
     <string name="savedrink">Save Drink</string>
     <string name="fav">Go to Favourites</string>
