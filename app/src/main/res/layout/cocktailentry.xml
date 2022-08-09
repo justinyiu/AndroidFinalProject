@@ -23,7 +23,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name: "
+                android:text="@string/name"
                 android:textSize="24dp"
                 android:textColor="@color/black"
                 style="bold"/>
@@ -47,7 +47,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Instructions: "
+                android:text="@string/drinkinstructions"
                 android:textSize="24dp"
                 android:textColor="@color/black"
                 style="bold"/>
@@ -70,7 +70,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ingredient1: "
+                android:text="@string/ingredient1"
                 android:textSize="24dp"
                 android:textColor="@color/black"
                 style="bold"/>
@@ -93,7 +93,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ingredient2: "
+                android:text="@string/ingredient2"
                 android:textSize="24dp"
                 android:textColor="@color/black"
                 style="bold"/>
@@ -116,7 +116,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ingredient3: "
+                android:text="@string/ingredient3"
                 android:textSize="24dp"
                 android:textColor="@color/black"
                 style="bold"/>
