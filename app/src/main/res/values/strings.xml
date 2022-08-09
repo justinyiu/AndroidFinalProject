@@ -7,6 +7,17 @@
     <string name="owlbot_button">Owlbot</string>
     <string name="nutrition_button">nutrition</string>
     <string name="enter_button">Search</string>
+    <string name="name">Drink Name:</string>
+    <string name="drinkinstructions">Instructions:</string>
+    <string name="ingredient1">Ingredient 1: </string>
+    <string name="ingredient2">Ingredient 2: </string>
+    <string name="ingredient3">Ingredient 3: </string>
+    <string name ="hide">Hide</string>
+    <string name="savedrink">Save Drink</string>
+    <string name="fav">Go to Favourites</string>
+    <string name="search_button">Search</string>
+
+
 
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

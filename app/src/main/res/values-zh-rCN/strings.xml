@@ -8,6 +8,15 @@
     <string name="owlbot_button">Owlbot</string>
     <string name="nutrition_button">营养</string>
     <string name="enter_button">搜索</string>
+    <string name="name">飲品名稱：</string>
+    <string name="drinkinstructions">指示:</string>
+    <string name="ingredient1">成分 1: </string>
+    <string name="ingredient2">成分 2: </string>
+    <string name="ingredient3">成分 3: </string>
+    <string name ="hide">隱藏</string>
+    <string name="savedrink">節省飲料</string>
+    <string name="fav">轉到收藏夾</string>
+    <string name="search_button">搜索</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">第一区</string>

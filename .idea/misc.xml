@@ -12,6 +12,13 @@
         <entry key="..\:/Users/16132/StudioProjects/AndroidFinalProject/app/src/main/res/menu/menu_cocktail.xml" value="0.365625" />
         <entry key="..\:/Users/16132/StudioProjects/AndroidFinalProject/app/src/main/res/menu/menu_main.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/layout/activity_cocktail.xml" value="0.2552083333333333" />
+        <entry key="app/src/main/res/layout/activity_cocktail_item.xml" value="0.15208333333333332" />
+        <entry key="app/src/main/res/layout/activity_detail.xml" value="0.15208333333333332" />
+        <entry key="app/src/main/res/layout/activity_empty.xml" value="0.15208333333333332" />
+        <entry key="app/src/main/res/layout/activity_favourite_cocktails.xml" value="0.15208333333333332" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.15208333333333332" />
+        <entry key="app/src/main/res/layout/cocktailentry.xml" value="0.15208333333333332" />
+        <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.15208333333333332" />
         <entry key="app/src/main/res/layout/fragment_list.xml" value="0.2552083333333333" />
       </map>
     </option>
