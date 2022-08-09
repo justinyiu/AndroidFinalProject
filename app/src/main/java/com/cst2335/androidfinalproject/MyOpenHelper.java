@@ -65,6 +65,12 @@ public class MyOpenHelper extends SQLiteOpenHelper {
       */
     }
 
+    /**
+     * drops the old table if it exists
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.i("MyOpenHelper", "oldVersion=" + oldVersion + "newVersion=" + newVersion);
@@ -73,7 +79,16 @@ public class MyOpenHelper extends SQLiteOpenHelper {
     }
 
 
-
+    /**
+     * custom method used to add data to the database.
+     * Added a boolean check to see if the entries were successfully added
+     * @param drinkName
+     * @param drinkInstructions
+     * @param ingredient1
+     * @param ingredient2
+     * @param ingredient3
+     * @return
+     */
     public boolean addData (String drinkName,String drinkInstructions, String ingredient1, String ingredient2, String ingredient3) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -93,20 +108,10 @@ public class MyOpenHelper extends SQLiteOpenHelper {
         }
     }
 
-//    public boolean queryDrink(String drinkName) {
-//        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME + "WHERE " + COL_NAME + " = ?" , new String[]{drinkName});
-//        boolean isHas = false;
-//        if (cursor != null && cursor.getCount() > 0) {
-//            isHas = true;
-//            cursor.close();
-//        }
-//        return isHas;
-//    }
-//
-//    public void deleteDrink(String drinkName) {
-//        getWritableDatabase().execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COL_NAME + " = ? ", new Object[]{drinkName});
-//    }
-
+    /**
+     * the cursor getData method returns the data from the database
+     * @return
+     */
 
     public Cursor getData() {
         SQLiteDatabase db = this.getWritableDatabase();
