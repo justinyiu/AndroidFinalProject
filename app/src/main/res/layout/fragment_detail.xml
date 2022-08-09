@@ -47,14 +47,14 @@
                 android:id="@+id/hide"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hide"
+                android:text="@string/hide"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"/>
             <Button
                 android:id="@+id/saveDrink"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Save"
+                android:text="@string/savedrink"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp" />
 
@@ -62,7 +62,30 @@
                 android:id="@+id/goToFav"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Go To Favourites"
+                android:text="@string/fav"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp" />
+
+            <Button
+                android:id="@+id/hide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/hide"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"/>
+            <Button
+                android:id="@+id/saveDrink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/savedrink"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp" />
+
+            <Button
+                android:id="@+id/goToFav"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fav"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp" />
 
