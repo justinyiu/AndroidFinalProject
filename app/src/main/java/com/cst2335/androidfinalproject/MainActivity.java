@@ -36,7 +36,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-
+    View view;
     Button button;
     Toolbar myToolbar;
 

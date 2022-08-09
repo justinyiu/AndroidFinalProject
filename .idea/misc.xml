@@ -7,10 +7,28 @@
         <entry key="..\:/Users/16132/StudioProjects/AndroidFinalProject/app/src/main/res/layout/activity_cocktail_item.xml" value="0.2552083333333333" />
         <entry key="..\:/Users/16132/StudioProjects/AndroidFinalProject/app/src/main/res/layout/activity_empty.xml" value="0.17831813576494426" />
         <entry key="..\:/Users/16132/StudioProjects/AndroidFinalProject/app/src/main/res/layout/activity_main.xml" value="0.17831813576494426" />
+        <entry key="..\:/Users/16132/StudioProjects/AndroidFinalProject/app/src/main/res/layout/activity_nav_bar.xml" value="0.24954710144927536" />
         <entry key="..\:/Users/16132/StudioProjects/AndroidFinalProject/app/src/main/res/layout/fragment_detail.xml" value="0.22" />
         <entry key="..\:/Users/16132/StudioProjects/AndroidFinalProject/app/src/main/res/layout/fragment_list.xml" value="0.17831813576494426" />
+        <entry key="..\:/Users/16132/StudioProjects/AndroidFinalProject/app/src/main/res/layout/header_layout.xml" value="0.24954710144927536" />
         <entry key="..\:/Users/16132/StudioProjects/AndroidFinalProject/app/src/main/res/menu/menu_cocktail.xml" value="0.365625" />
         <entry key="..\:/Users/16132/StudioProjects/AndroidFinalProject/app/src/main/res/menu/menu_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/16132/StudioProjects/AndroidFinalProject/app/src/main/res/menu/menu_navbar.xml" value="0.365625" />
+        <entry key="..\:/Users/jiayi/AndroidStudioProjects/AndroidFinalProject/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.119" />
+        <entry key="..\:/Users/jiayi/AndroidStudioProjects/AndroidFinalProject/app/src/main/res/drawable/ic_launcher_background.xml" value="0.119" />
+        <entry key="..\:/Users/jiayi/AndroidStudioProjects/AndroidFinalProject/app/src/main/res/layout/activity_cocktail.xml" value="0.22" />
+        <entry key="..\:/Users/jiayi/AndroidStudioProjects/AndroidFinalProject/app/src/main/res/layout/activity_empty.xml" value="0.17447916666666666" />
+        <entry key="..\:/Users/jiayi/AndroidStudioProjects/AndroidFinalProject/app/src/main/res/layout/activity_main.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/jiayi/AndroidStudioProjects/AndroidFinalProject/app/src/main/res/layout/fragment_detail.xml" value="0.6" />
+        <entry key="..\:/Users/jiayi/AndroidStudioProjects/AndroidFinalProject/app/src/main/res/layout/fragment_list.xml" value="0.17447916666666666" />
+        <entry key="..\:/Users/jiayi/AndroidStudioProjects/AndroidFinalProject/app/src/main/res/menu/menu_main.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/jiayi/AndroidStudioProjects/AndroidFinalProject/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.119" />
+        <entry key="app/src/main/res/layout/activity_cocktail.xml" value="0.2552083333333333" />
+        <entry key="app/src/main/res/layout/activity_empty.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2552083333333333" />
+        <entry key="app/src/main/res/layout/content_main.xml" value="0.2552083333333333" />
+        <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_list.xml" value="0.2552083333333333" />
         <entry key="app/src/main/res/layout/activity_cocktail.xml" value="0.2552083333333333" />
         <entry key="app/src/main/res/layout/activity_cocktail_item.xml" value="0.15208333333333332" />
         <entry key="app/src/main/res/layout/activity_detail.xml" value="0.15208333333333332" />
