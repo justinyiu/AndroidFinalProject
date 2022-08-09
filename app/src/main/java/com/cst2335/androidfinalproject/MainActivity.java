@@ -58,6 +58,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * menu bar that allows for the selection of different options
+     * @param item
+     * @return
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
         String message = null;
         Intent goToCocktail = new Intent(MainActivity.this, CocktailActivity.class);

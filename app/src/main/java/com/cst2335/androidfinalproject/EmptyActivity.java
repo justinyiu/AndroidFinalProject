@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+/**
+ * Empty activity is the transition page to pass the data from the detail fragment to the new recycler view
+ */
 public class EmptyActivity extends AppCompatActivity {
 
     @Override

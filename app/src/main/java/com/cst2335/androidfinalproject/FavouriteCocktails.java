@@ -19,6 +19,10 @@ public class FavouriteCocktails extends AppCompatActivity {
     MyAdapter adapter;
     boolean isSaved;
 
+    /**
+     * On creation will inialize the arraylist of all the columns in the database to store information
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,20 +39,13 @@ public class FavouriteCocktails extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         displayData();
 
-//        Button deleteButton = findViewById(R.id.deleteButton);
-//
-//
-//        deleteButton.setOnClickListener( clk -> {
-//            isSaved = DB.queryDrink(idDrink);
-//            if (isSaved) {
-//                DB.deleteDrink(idDrink);
-//            }
-//            isSaved = DB.queryDrink(idDrink);
-//
-//        });
+
 
     }
 
+    /**
+     * custom method that will display the data of saved drinks into the new recycler view
+     */
     private void displayData() {
         Cursor cursor = DB.getData();
         if (cursor.getCount()==0)
