@@ -35,7 +35,7 @@ public class DetailActivity extends AppCompatActivity {
             return;
         }
         DetailFragment detailFragment = new DetailFragment();
-        detailFragment.setIntent(intent);
+        //detailFragment.setIntent(intent);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frame_layout, detailFragment).commit();
 

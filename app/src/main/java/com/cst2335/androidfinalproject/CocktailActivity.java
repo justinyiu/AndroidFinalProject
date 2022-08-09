@@ -4,12 +4,17 @@ package com.cst2335.androidfinalproject;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -41,10 +46,14 @@ import android.widget.EditText;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
-public class CocktailActivity extends AppCompatActivity{
+public class CocktailActivity extends AppCompatActivity {
 
     /**
      * list of variables in the layout
@@ -57,8 +66,10 @@ public class CocktailActivity extends AppCompatActivity{
     MyOpenHelper myOpenHelper;
     SQLiteDatabase myDatabase;
     String drinkSearch;
-    Bitmap cocktailPic;
     Toolbar myToolbar;
+    ProgressBar progressBar;
+    Bitmap cocktailPic;
+    ImageView cocktailImage;
     DetailFragment dFragment;
     public static final String COCKTAIL_NAME = "NAME";
     public static final String COCKTAIL_PICTURE = "PICTURE";
@@ -76,13 +87,13 @@ public class CocktailActivity extends AppCompatActivity{
         searchButton = findViewById(R.id.search_button);
         cocktailText = findViewById(R.id.cocktailSearch);
         myList = findViewById(R.id.listView);
-
         myToolbar = findViewById(R.id.my_toolbarCocktail);
-        setSupportActionBar(myToolbar);
+        cocktailImage = findViewById(R.id.image_result);
 
+        progressBar = findViewById(R.id.progressBar);
+        setSupportActionBar(myToolbar);
         myListAdapter = new MyListAdapter();
         myList.setAdapter(myListAdapter);
-
 
 //**************************************************************************************************
 
@@ -101,6 +112,8 @@ public class CocktailActivity extends AppCompatActivity{
 
         });
 
+//**************************************************************************************************
+
         searchButton.setOnClickListener(v -> {
             drinkSearch = cocktailText.getText().toString();
             CocktailQuery cocktailQuery = new CocktailQuery();
@@ -108,35 +121,39 @@ public class CocktailActivity extends AppCompatActivity{
             cocktailText.setText("");
             myListAdapter.notifyDataSetChanged();
 
+            Snackbar snackbar = Snackbar.make(searchButton, "Showing results related to " +
+                    drinkSearch, Snackbar.LENGTH_SHORT);
+            snackbar.show();
         });
 
 //**************************************************************************************************
 
-    myOpenHelper = new MyOpenHelper(this);
-    myDatabase = myOpenHelper.getWritableDatabase();
-    Cursor history = myDatabase.rawQuery("select * from " + MyOpenHelper.TABLE_NAME + ";", null);
+        myOpenHelper = new MyOpenHelper(this);
+        myDatabase = myOpenHelper.getWritableDatabase();
+        Cursor history = myDatabase.rawQuery("select * from " + MyOpenHelper.TABLE_NAME + ";", null);
 
 
-    int idIndex = history.getColumnIndex((MyOpenHelper.COL_ID));
-    int picIndex = history.getColumnIndex((MyOpenHelper.COL_PICTURE));
-    int instructionsIndex = history.getColumnIndex((MyOpenHelper.COL_INSTRUCTIONS));
-    int ingredient1Index = history.getColumnIndex((MyOpenHelper.COL_INGREDIENT1));
-    int ingredient2Index = history.getColumnIndex((MyOpenHelper.COL_INGREDIENT2));
-    int ingredient3Index = history.getColumnIndex((MyOpenHelper.COL_INGREDIENT3));
+        int idIndex = history.getColumnIndex((MyOpenHelper.COL_ID));
+        int picIndex = history.getColumnIndex((MyOpenHelper.COL_PICTURE));
+        int instructionsIndex = history.getColumnIndex((MyOpenHelper.COL_INSTRUCTIONS));
+        int ingredient1Index = history.getColumnIndex((MyOpenHelper.COL_INGREDIENT1));
+        int ingredient2Index = history.getColumnIndex((MyOpenHelper.COL_INGREDIENT2));
+        int ingredient3Index = history.getColumnIndex((MyOpenHelper.COL_INGREDIENT3));
 
         while (history.moveToNext()) {
-        long id = history.getInt(idIndex);
-        String picture = history.getString(picIndex);
-        String instructions = history.getString(instructionsIndex);
-        String ingredient1 = history.getString(ingredient1Index);
-        String ingredient2 = history.getString(ingredient2Index);
-        String ingredient3 = history.getString((ingredient3Index));
-    }
+            long id = history.getInt(idIndex);
+            String picture = history.getString(picIndex);
+            String instructions = history.getString(instructionsIndex);
+            String ingredient1 = history.getString(ingredient1Index);
+            String ingredient2 = history.getString(ingredient2Index);
+            String ingredient3 = history.getString((ingredient3Index));
+        }
 
         history.close();
 
 
-}
+    }
+
 
 //**************************************************************************************************
 
@@ -176,6 +193,7 @@ public class CocktailActivity extends AppCompatActivity{
                     ContentValues newRowValues = new ContentValues();
                     newRowValues.put(MyOpenHelper.COL_NAME, name);
                     newRowValues.put(MyOpenHelper.COL_PICTURE, picture);
+
                     newRowValues.put(MyOpenHelper.COL_INSTRUCTIONS, instructions);
                     newRowValues.put(MyOpenHelper.COL_INGREDIENT1, ingredient1);
                     newRowValues.put(MyOpenHelper.COL_INGREDIENT2, ingredient2);
@@ -184,7 +202,7 @@ public class CocktailActivity extends AppCompatActivity{
                     //long newId = myDatabase.insert(MyOpenHelper.TABLE_NAME,null, newRowValues);
 
                     Cocktail newCocktail = new Cocktail(name, picture, instructions,
-                            ingredient1, ingredient2,ingredient3);
+                            ingredient1, ingredient2, ingredient3);
 
                     cocktails.add(newCocktail);
 
@@ -192,19 +210,21 @@ public class CocktailActivity extends AppCompatActivity{
                     j++;
                 }
 
-
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
             return "done";
         }
 
         public void onProgressUpdate(Integer... args) {
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setProgress(args[0]);
 
         }
 
         public void onPostExecute(String fromDoInBackground) {
+            progressBar.setVisibility(View.VISIBLE);
             Log.i(TAG, fromDoInBackground);
         }
 
@@ -214,27 +234,33 @@ public class CocktailActivity extends AppCompatActivity{
 
     private class MyListAdapter extends BaseAdapter {
 
-        public int getCount() { return cocktails.size();}
+        public int getCount() {
+            return cocktails.size();
+        }
 
-        public Cocktail getItem(int position) { return cocktails.get(position); }
+        public Cocktail getItem(int position) {
+            return cocktails.get(position);
+        }
 
-        public long getItemId(int position) { return position; }
+        public long getItemId(int position) {
+            return position;
+        }
 
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            Cocktail thisRow = getItem(position);
             View newView = getLayoutInflater().inflate(R.layout.activity_cocktail_item, parent, false);
             TextView cocktailName = newView.findViewById(R.id.search_result);
             cocktailName.setText(cocktails.get(position).name);
 
             return newView;
 
-            }
         }
+    }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_cocktail, menu);
+
         return true;
 
     }
@@ -243,8 +269,7 @@ public class CocktailActivity extends AppCompatActivity{
         String message = null;
         Intent goToHome = new Intent(CocktailActivity.this, MainActivity.class);
 
-        switch(item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.home:
                 message = "You click home, " + "\n" + "sending you to home page";
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show();
@@ -265,11 +290,12 @@ public class CocktailActivity extends AppCompatActivity{
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CocktailActivity.this);
                 alertDialogBuilder.setTitle("Instructions")
                         .setMessage("Enter a word associated with a cocktail you would like to search." + "\n" +
-                            "After you have entered the word click the 'SEARCH' button and the results will display" + "\n" +
-                            "If you would like to view the image, instructions and ingredients of the drink" +
-                            "click on one of the items from the list" + "\n\n" +
-                            "For example entering the word apple will show all cocktails with apple in the name")
-                        .setPositiveButton("Close", (dialog, click1) -> {})
+                                "After you have entered the word click the 'SEARCH' button and the results will display" + "\n" +
+                                "If you would like to view the image, instructions and ingredients of the drink" +
+                                "click on one of the items from the list" + "\n\n" +
+                                "For example entering the word apple will show all cocktails with apple in the name")
+                        .setPositiveButton("Close", (dialog, click1) -> {
+                        })
                         .create().show();
                 break;
         }
