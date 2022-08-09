@@ -24,4 +24,10 @@
     <string name="delete">delete</string>
     <string name="Saved">Saved!!</string>
 
+    <string name="detail_has_no_intent">intent is null !</string>
+    <string name="detail_has_no_id">id is null !</string>
+    <string name="detail_alert_confirm">confirm</string>
+    <string name="detail_delete_database_confirm">Are you sure to delete detail from database?</string>
+
+
 </resources>
