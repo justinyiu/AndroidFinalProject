@@ -7,6 +7,11 @@ import android.os.Bundle;
 
 public class EmptyActivity extends AppCompatActivity {
 
+    /**
+     * This constructor allows us to go from the CocktailActivity to
+     * the DetailFragment which contains the specifics of a cocktail.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

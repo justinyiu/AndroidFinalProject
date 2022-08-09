@@ -12,7 +12,17 @@ class Cocktail {
     String ingredient2;
     String ingredient3;
 
-
+    /**
+     * This constructor allows for the creation of a Cocktail object.
+     * This constructor will allows us to populate an array of the objects
+     * Cocktail so that we can store specific values related to the cocktail.
+     * @param name
+     * @param picture
+     * @param instructions
+     * @param ingredient1
+     * @param ingredient2
+     * @param ingredient3
+     */
     public Cocktail(String name, String picture, String instructions,
                     String ingredient1, String ingredient2, String ingredient3) {
         super();

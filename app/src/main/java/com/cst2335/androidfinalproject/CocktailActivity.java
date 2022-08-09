@@ -78,7 +78,10 @@ public class CocktailActivity extends AppCompatActivity {
     public static final String COCKTAIL_INGREDIENT2 = "INGREDIENT2";
     public static final String COCKTAIL_INGREDIENT3 = "INGREDIENT3";
 
-
+    /**
+     * Instantiates functionality of the CocktailActivity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,7 +99,13 @@ public class CocktailActivity extends AppCompatActivity {
         myList.setAdapter(myListAdapter);
 
 //**************************************************************************************************
-
+        /**
+         * This onItemClickListener allows the user to select a cocktail from the list
+         * related to the keyword the typed in the search menu. When clicked
+         * by the user a fragment is opened which shows further details of the cocktail
+         * such as instructions to make it, a picture of the cocktail, and the first
+         * three ingredients needed to make the cocktail.
+         */
         myList.setOnItemClickListener((list, item, position, id) -> {
             Bundle dataToPass = new Bundle();
             dataToPass.putString(COCKTAIL_NAME, cocktails.get(position).name);
@@ -113,7 +122,14 @@ public class CocktailActivity extends AppCompatActivity {
         });
 
 //**************************************************************************************************
-
+        /**
+         * This onClickListener waits for the user to type a keyword related to a cocktail
+         * and once the click the search button the server will execute a query related to the
+         * word that they type in. For example if apple was typed the server will gather the
+         * information of all cocktails that contain the word apple within them. After all
+         * the information is retrieved a listView will be populated with the names of
+         * all the cocktails. A snackbar will also show up.
+         */
         searchButton.setOnClickListener(v -> {
             drinkSearch = cocktailText.getText().toString();
             CocktailQuery cocktailQuery = new CocktailQuery();
@@ -157,6 +173,10 @@ public class CocktailActivity extends AppCompatActivity {
 
 //**************************************************************************************************
 
+    /**
+     * Queries the database to retrieve information based on keywords
+     * related to cocktails within the database.
+     */
     public class CocktailQuery extends AsyncTask<String, Integer, String> {
 
         public String doInBackground(String... args) {
@@ -232,6 +252,10 @@ public class CocktailActivity extends AppCompatActivity {
 
 //**************************************************************************************************
 
+    /**
+     * Allows the listView to be inflated with the results
+     * of the query to the cocktail database.
+     */
     private class MyListAdapter extends BaseAdapter {
 
         public int getCount() {
@@ -257,6 +281,11 @@ public class CocktailActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Allows functionality within the toolbar.
+     * @param menu
+     * @return
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_cocktail, menu);
@@ -265,6 +294,12 @@ public class CocktailActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Gives specific tasks to each of the elements contained within
+     * the toolbar.
+     * @param item
+     * @return
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
         String message = null;
         Intent goToHome = new Intent(CocktailActivity.this, MainActivity.class);

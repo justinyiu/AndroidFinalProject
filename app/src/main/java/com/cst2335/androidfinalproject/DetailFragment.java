@@ -27,14 +27,9 @@ public class DetailFragment extends Fragment {
     MyOpenHelper DB;
     String idDrink;
 
-
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private Bundle dataFromActivity;
@@ -46,9 +41,10 @@ public class DetailFragment extends Fragment {
     private String ingredient3;
     private AppCompatActivity parentActivity;
 
-
+    /**
+     * Public constructor is empty
+     */
     public DetailFragment() {
-        // Required empty public constructor
     }
 
     /**
@@ -59,7 +55,7 @@ public class DetailFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment DetailsFragment.
      */
-    // TODO: Rename and change types and number of parameters
+
     public static DetailFragment newInstance(String param1, String param2) {
         DetailFragment fragment = new DetailFragment();
         Bundle args = new Bundle();
@@ -80,6 +76,15 @@ public class DetailFragment extends Fragment {
         }
     }
 
+    /**
+     * onCreateView receives data from the CocktailActivity to populate
+     * the fragment which contains the picture, instructions and ingredients
+     * of a seclected cocktail.
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -117,13 +122,14 @@ public class DetailFragment extends Fragment {
 //                isSaved = DB.queryDrink(idDrink);
 //       });
 
-
-
-
-
-
         Button saveButton = (Button)result.findViewById(R.id.saveDrink);
         saveButton.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * This method saves the cocktails descriptions
+             * to be used for offline viewing within a favourites page.
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 String drinkName = name.getText().toString();
