@@ -1,23 +1,28 @@
+
+
 package com.cst2335.androidfinalproject;
+
+import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.ContentValues;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
+import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import com.cst2335.androidfinalproject.databinding.ActivityMainBinding;
+
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import org.json.JSONArray;
@@ -27,47 +32,40 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
-import android.view.Menu;
-import android.view.MenuItem;
 import android.os.AsyncTask;
-import android.util.Log;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.Button;
-import android.content.Intent;
-import android.database.Cursor;
-import android.widget.ListAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-
-
-public class CocktailActivity extends AppCompatActivity {
-
+public class CocktailActivity extends AppCompatActivity{
 
     /**
      * list of variables in the layout
      */
-    private ListAdapter adapter;
-    private ListView theList; //id is theList
-    private ArrayList<Cocktail> cocktailList = new ArrayList<>();
-    //private MyListAdapter myAdapter;
-    private EditText userText;
-    private Button search;
-    private MyOpenHelper myOpenHelper;
-    private SQLiteDatabase myDatabase;
-    private String drinkSearch;
-    SharedPreferences prev = null; 
-
-    ArrayList<String> source = new ArrayList<>(Arrays.asList("One", "Two", "Three", "Four"));
-
-
-
-    //TODO: make a progress bar
-    private ProgressBar cocktailProgressBar;
-
+    MyListAdapter myListAdapter;
+    ListView myList;
+    ArrayList<Cocktail> cocktails = new ArrayList<>();
+    EditText cocktailText;
+    Button searchButton;
+    MyOpenHelper myOpenHelper;
+    SQLiteDatabase myDatabase;
+    String drinkSearch;
+    Bitmap cocktailPic;
+    Toolbar myToolbar;
+    DetailFragment dFragment;
+    public static final String COCKTAIL_NAME = "NAME";
+    public static final String COCKTAIL_PICTURE = "PICTURE";
+    public static final String COCKTAIL_INSTRUCTIONS = "INSTRUCTIONS";
+    public static final String COCKTAIL_INGREDIENT1 = "INGREDIENT1";
+    public static final String COCKTAIL_INGREDIENT2 = "INGREDIENT2";
+    public static final String COCKTAIL_INGREDIENT3 = "INGREDIENT3";
 
 
     @Override
@@ -75,199 +73,210 @@ public class CocktailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cocktail);
 
-        // find the id's
-        search = findViewById(R.id.search_button);
-        userText = findViewById(R.id.cocktailSearch);
-        theList = findViewById(R.id.theList);
-        cocktailProgressBar = findViewById(R.id.progressBar);
+        searchButton = findViewById(R.id.search_button);
+        cocktailText = findViewById(R.id.cocktailSearch);
+        myList = findViewById(R.id.listView);
+
+        myToolbar = findViewById(R.id.my_toolbarCocktail);
+        setSupportActionBar(myToolbar);
+
+        myListAdapter = new MyListAdapter();
+        myList.setAdapter(myListAdapter);
 
 
-        cocktailProgressBar.setVisibility(View.VISIBLE);
+//**************************************************************************************************
 
+        myList.setOnItemClickListener((list, item, position, id) -> {
+            Bundle dataToPass = new Bundle();
+            dataToPass.putString(COCKTAIL_NAME, cocktails.get(position).name);
+            dataToPass.putString(COCKTAIL_PICTURE, cocktails.get(position).picture);
+            dataToPass.putString(COCKTAIL_INSTRUCTIONS, cocktails.get(position).instructions);
+            dataToPass.putString(COCKTAIL_INGREDIENT1, cocktails.get(position).ingredient1);
+            dataToPass.putString(COCKTAIL_INGREDIENT2, cocktails.get(position).ingredient2);
+            dataToPass.putString(COCKTAIL_INGREDIENT3, cocktails.get(position).ingredient3);
 
+            Intent nextActivity = new Intent(CocktailActivity.this, EmptyActivity.class);
+            nextActivity.putExtras(dataToPass);
+            startActivity(nextActivity);
 
+        });
 
-        myOpenHelper = new MyOpenHelper(this);
-        myDatabase = myOpenHelper.getWritableDatabase();
-        Cursor history = myDatabase.rawQuery("select * from " + MyOpenHelper.TABLE_NAME + ";", null);
-
-
-        int idIndex = history.getColumnIndex((MyOpenHelper.COL_ID));
-        int picIndex = history.getColumnIndex((MyOpenHelper.COL_PICTURE));
-        int instructionsIndex = history.getColumnIndex((MyOpenHelper.COL_INSTRUCTIONS));
-        int ingredient1Index = history.getColumnIndex((MyOpenHelper.COL_INGREDIENT1));
-        int ingredient2Index = history.getColumnIndex((MyOpenHelper.COL_INGREDIENT2));
-        int ingredient3Index = history.getColumnIndex((MyOpenHelper.COL_INGREDIENT3));
-
-        while (history.moveToNext()) {
-            long id = history.getInt(idIndex);
-            String picture = history.getString(picIndex);
-            String instructions = history.getString(instructionsIndex);
-            String ingredient1 = history.getString(ingredient1Index);
-            String ingredient2 = history.getString(ingredient2Index);
-            String ingredient3 = history.getString((ingredient3Index));
-
-        }
-
-        //printCursor(history, 1);
-        history.close();
-        /**
-         * send the query to the server
-         */
-        search.setOnClickListener(click->{
-            drinkSearch = userText.getText().toString();
-            //drinkSearch = drinkSearch.replace(" ", "%20");
-            MyHttpRequest req = new MyHttpRequest();
-            req.execute("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + drinkSearch); // type 1
-
-
-            cocktailProgressBar.setVisibility(View.VISIBLE);
-            userText.setText("");
-
+        searchButton.setOnClickListener(v -> {
+            drinkSearch = cocktailText.getText().toString();
+            CocktailQuery cocktailQuery = new CocktailQuery();
+            cocktailQuery.execute("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + drinkSearch);
+            cocktailText.setText("");
+            myListAdapter.notifyDataSetChanged();
 
         });
 
 //**************************************************************************************************
-        //TODO: add and initialize the database
-        // inialize the database
-        MyOpenHelper myOpener = new MyOpenHelper(this);
-        myDatabase = myOpener.getWritableDatabase();
-        Cursor cursor = myDatabase.rawQuery("Select * from " + MyOpenHelper.TABLE_NAME + ";", null);
+
+    myOpenHelper = new MyOpenHelper(this);
+    myDatabase = myOpenHelper.getWritableDatabase();
+    Cursor history = myDatabase.rawQuery("select * from " + MyOpenHelper.TABLE_NAME + ";", null);
 
 
-        userText = findViewById(R.id.cocktailSearch);
-        //EditText editText2 = findViewById(R.id.editText2);
-        search = findViewById(R.id.search_button);
+    int idIndex = history.getColumnIndex((MyOpenHelper.COL_ID));
+    int picIndex = history.getColumnIndex((MyOpenHelper.COL_PICTURE));
+    int instructionsIndex = history.getColumnIndex((MyOpenHelper.COL_INSTRUCTIONS));
+    int ingredient1Index = history.getColumnIndex((MyOpenHelper.COL_INGREDIENT1));
+    int ingredient2Index = history.getColumnIndex((MyOpenHelper.COL_INGREDIENT2));
+    int ingredient3Index = history.getColumnIndex((MyOpenHelper.COL_INGREDIENT3));
 
-
-
-
-/**
- * When the user clicks the search button, it will get the user's text and execute the search query
- *Then it will launch into the DetailFragment class
- * TODO: Add error handling: make sure the user only enters TEXT
- */
-
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                Intent goToFragment = new Intent(CocktailActivity.this, DetailFragment.class );
-                startActivity(goToFragment);
-            }
-        });
-
-        /**
-         * This is where the previous input is saved and displayed in the edittext
-         */
-        prev = PreferenceManager.getDefaultSharedPreferences(this);
-        String previousDrink = prev.getString("PreviousDrink", "");
-        EditText lastDrink = findViewById(R.id.cocktailSearch);
-        lastDrink.setText(previousDrink);
-        search.setOnClickListener(bt -> savePreviousDrink(lastDrink.getText().toString()));
+        while (history.moveToNext()) {
+        long id = history.getInt(idIndex);
+        String picture = history.getString(picIndex);
+        String instructions = history.getString(instructionsIndex);
+        String ingredient1 = history.getString(ingredient1Index);
+        String ingredient2 = history.getString(ingredient2Index);
+        String ingredient3 = history.getString((ingredient3Index));
     }
 
-    /**
-     * Saves the string
-     * @param previousDrink
-     */
-    private void savePreviousDrink (String previousDrink) {
-        SharedPreferences.Editor editor = prev.edit();
-        editor.putString("PreviousDrink", previousDrink);
-        editor.commit();
-    }
+        history.close();
 
 
-    /**
-     * establishes the HTTP request
-     */
+}
 
-    private class MyHttpRequest extends AsyncTask <String, Integer, String> {
+//**************************************************************************************************
 
-        public String doInBackground(String ... args) {
+    public class CocktailQuery extends AsyncTask<String, Integer, String> {
 
+        public String doInBackground(String... args) {
+
+            //clears the search
+            cocktails.clear();
             try {
-                // create a URL object of what server to contact
                 URL url = new URL(args[0]);
 
-                //open the connection
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
-                //wait for data:
                 InputStream response = urlConnection.getInputStream();
-
-                //JSON reading:
-                //build the string response
                 BufferedReader reader = new BufferedReader(new InputStreamReader(response, "UTF-8"), 8);
                 StringBuilder sb = new StringBuilder();
-
                 String line = null;
                 while ((line = reader.readLine()) != null) {
                     sb.append(line + "\n");
                 }
 
-                String result = sb.toString(); // result in the whole string
-
-                //convert String to JSON
+                String result = sb.toString();
                 JSONObject jsObj = new JSONObject(result);
                 JSONArray drinksArray = jsObj.getJSONArray("drinks");
+
+
                 for (int i = 0; i < drinksArray.length(); i++) {
                     JSONObject objectFromArray = drinksArray.getJSONObject(i);
-
+                    String name = objectFromArray.getString("strDrink");
                     String picture = objectFromArray.getString("strDrinkThumb");
                     String instructions = objectFromArray.getString("strInstructions");
                     String ingredient1 = objectFromArray.getString("strIngredient1");
                     String ingredient2 = objectFromArray.getString("strIngredient2");
                     String ingredient3 = objectFromArray.getString("strIngredient3");
-                    int j=0; j++;
+
+                    ContentValues newRowValues = new ContentValues();
+                    newRowValues.put(MyOpenHelper.COL_NAME, name);
+                    newRowValues.put(MyOpenHelper.COL_PICTURE, picture);
+                    newRowValues.put(MyOpenHelper.COL_INSTRUCTIONS, instructions);
+                    newRowValues.put(MyOpenHelper.COL_INGREDIENT1, ingredient1);
+                    newRowValues.put(MyOpenHelper.COL_INGREDIENT2, ingredient2);
+                    newRowValues.put(MyOpenHelper.COL_INGREDIENT3, ingredient3);
+
+                    //long newId = myDatabase.insert(MyOpenHelper.TABLE_NAME,null, newRowValues);
+
+                    Cocktail newCocktail = new Cocktail(name, picture, instructions,
+                            ingredient1, ingredient2,ingredient3);
+
+                    cocktails.add(newCocktail);
+
+                    int j = 0;
+                    j++;
                 }
 
-            }
-            catch (Exception e) {
 
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
             return "done";
         }
 
-        //type 2
-        public void onProgressUpdate(Integer ... args) {
+        public void onProgressUpdate(Integer... args) {
 
         }
 
-        //type 3
         public void onPostExecute(String fromDoInBackground) {
-            Log.i("HTTP", fromDoInBackground);
-            //theList.setAdapter(adapter);
-           // for(int i=1; 1<=)
+            Log.i(TAG, fromDoInBackground);
         }
+
     }
 
-    public class Cocktail {
-        String instructions;
-        String ingredients;
-        long id;
+//**************************************************************************************************
 
-        public Cocktail(String instructions, String ingredients, long id) {
-            super();
-            this.instructions = instructions;
-            this.ingredients = ingredients;
-            this.id = id;
+    private class MyListAdapter extends BaseAdapter {
+
+        public int getCount() { return cocktails.size();}
+
+        public Cocktail getItem(int position) { return cocktails.get(position); }
+
+        public long getItemId(int position) { return position; }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            Cocktail thisRow = getItem(position);
+            View newView = getLayoutInflater().inflate(R.layout.activity_cocktail_item, parent, false);
+            TextView cocktailName = newView.findViewById(R.id.search_result);
+            cocktailName.setText(cocktails.get(position).name);
+
+            return newView;
+
+            }
         }
 
-        public String getInstructions() {
-            return this.instructions;
-        }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_cocktail, menu);
+        return true;
 
-        public String getIngredients() {
-            return this.ingredients;
-        }
+    }
 
-        public long getId() { return this.id;}
+    public boolean onOptionsItemSelected(MenuItem item) {
+        String message = null;
+        Intent goToHome = new Intent(CocktailActivity.this, MainActivity.class);
 
-        public String toString(){
-            return("message:" + this.instructions + " isSent:" + this.ingredients + " id:" + this.id);
+        switch(item.getItemId())
+        {
+            case R.id.home:
+                message = "You click home, " + "\n" + "sending you to home page";
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                startActivity(goToHome);
+                break;
+            case R.id.homeIcon:
+                message = "You clicked on the home icon, " + "\n " + " sending you to the home page";
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                startActivity(goToHome);
+                break;
+            case R.id.search:
+            case R.id.searchIcon:
+                message = "You're currently searching for cocktails";
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                break;
+            case R.id.help:
+            case R.id.helpIcon:
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CocktailActivity.this);
+                alertDialogBuilder.setTitle("Instructions")
+                        .setMessage("Enter a word associated with a cocktail you would like to search." + "\n" +
+                            "After you have entered the word click the 'SEARCH' button and the results will display" + "\n" +
+                            "If you would like to view the image, instructions and ingredients of the drink" +
+                            "click on one of the items from the list" + "\n\n" +
+                            "For example entering the word apple will show all cocktails with apple in the name")
+                        .setPositiveButton("Close", (dialog, click1) -> {})
+                        .create().show();
+                break;
         }
+        return true;
     }
 
 }
+
+
+

@@ -2,8 +2,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragmentLocation"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EmptyActivity">
+    android:id="@+id/favourite_cocktails"
+    tools:context=".FavouriteCocktails">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
 </FrameLayout>

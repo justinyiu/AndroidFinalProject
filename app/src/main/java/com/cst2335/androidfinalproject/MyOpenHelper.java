@@ -1,6 +1,8 @@
 package com.cst2335.androidfinalproject;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -12,25 +14,20 @@ public class MyOpenHelper extends SQLiteOpenHelper {
 
 
     /**
-     * This class *should* be completed
-     */
-
-
-    /**
      * Variables needed for the database
      */
 
     private static final String ACTIVITY_NAME = "MyOpenHelper";
     public static final String FILENAME = "MyDatabase";
-    public static final int VERSION_NUM = 1;
+    public static final int VERSION_NUM = 22;
     public static final String TABLE_NAME = "Cocktails";
-    public static final String COL_ID = "_id";
-    public static final String COL_PICTURE = "picture";
-    public static final String COL_INSTRUCTIONS = "instructions";
-    public static final String COL_INGREDIENT1 = "ingredient1";
-    public static final String COL_INGREDIENT2 = "ingredient2";
-    public static final String COL_INGREDIENT3 = "ingredient3";
-    public static final String COL_INGREDIENTS = "Ingredients" ;
+    public static final String COL_ID = "ID";
+    public static final String COL_NAME = "NAME";
+    public static final String COL_PICTURE = "PICTURE";
+    public static final String COL_INSTRUCTIONS = "INSTRUCTIONS";
+    public static final String COL_INGREDIENT1 = "INGREDIENT1";
+    public static final String COL_INGREDIENT2 = "INGREDIENT2";
+    public static final String COL_INGREDIENT3 = "INGREDIENT3";
 
 
     /**
@@ -53,17 +50,19 @@ public class MyOpenHelper extends SQLiteOpenHelper {
          */
         Log.i(ACTIVITY_NAME, "OnCreate");
 
-        db.execSQL("CREATE TABLE " + TABLE_NAME + "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + COL_PICTURE + "TEXT NOT NULL,"
-                + COL_INSTRUCTIONS + "TEXT NOT NULL,"
-                + COL_INGREDIENT1 + "TEXT NOT NULL,"
-                + COL_INGREDIENT2 + "TEXT NOT NULL,"
-                + COL_INGREDIENT3 + "TEXT NOT NULL);");
+        //String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                //"NAME TEXT, " + " INSTRUCTIONS TEXT," + " INGREDIENT1 TEXT, " + " INGREDIENT2 TEXT, " + " INGREDIENT3 TEXT) ";
+
+        db.execSQL("CREATE TABLE Cocktails(ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, INSTRUCTIONS TEXT, INGREDIENT1 TEXT, INGREDIENT2 TEXT, INGREDIENT3 TEXT)");
+
         /**
-         * if the above code does not create the table successfully, then try the code below
-         */
-       // db.execSQL(String.format("Create table %s(%s integer primary key autoincrement, %s text, %s INTEGER);"
-       //         ,TABLE_NAME, COL_ID, COL_PICTURE, COL_INSTRUCTIONS, COL_INGREDIENTS));
+        db.execSQL("CREATE TABLE " + TABLE_NAME + "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COL_NAME + " TEXT,"
+                + COL_INSTRUCTIONS + " TEXT,"
+                + COL_INGREDIENT1 + " TEXT,"
+                + COL_INGREDIENT2 + " TEXT,"
+                + COL_INGREDIENT3 + " TEXT);");
+      */
     }
 
     @Override
@@ -72,4 +71,49 @@ public class MyOpenHelper extends SQLiteOpenHelper {
         db.execSQL("Drop table if exists " + TABLE_NAME);
         this.onCreate(db);
     }
+
+
+
+    public boolean addData (String drinkName,String drinkInstructions, String ingredient1, String ingredient2, String ingredient3) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COL_NAME, drinkName);
+        cv.put(COL_INSTRUCTIONS, drinkInstructions);
+        cv.put(COL_INGREDIENT1, ingredient1);
+        cv.put(COL_INGREDIENT2, ingredient2);
+        cv.put(COL_INGREDIENT3, ingredient3);
+
+        long result = db.insert(TABLE_NAME, null, cv);
+
+        if (result == -1) {
+            return false;
+        }
+        else  {
+            return true;
+        }
+    }
+
+//    public boolean queryDrink(String drinkName) {
+//        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME + "WHERE " + COL_NAME + " = ?" , new String[]{drinkName});
+//        boolean isHas = false;
+//        if (cursor != null && cursor.getCount() > 0) {
+//            isHas = true;
+//            cursor.close();
+//        }
+//        return isHas;
+//    }
+//
+//    public void deleteDrink(String drinkName) {
+//        getWritableDatabase().execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COL_NAME + " = ? ", new Object[]{drinkName});
+//    }
+
+
+    public Cursor getData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        return data;
+    }
 }
+
+
+  
